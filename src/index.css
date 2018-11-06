@@ -6,9 +6,86 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: white !important;
+  background-color: rgb(37,37,37) !important;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+
+.stockContainer {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  flex-wrap: wrap;
+  text-align:left;
+  justify-content: center;
+  padding-left: 0.1%;
+  border-radius: 15px;
+  background-color: rgb(51,51,51);
+  color: white;
+}
+
+.ownedStockCard, .watchlistStockCard {
+  display: flex;
+  border-color: green;
+  white-space: wrap;
+  overflow: hidden;
+  margin-right: 70px;
+  /* border-style: solid; */
+  /* border-radius: 10px; */
+  box-shadow: 0 0 10px #000000;
+  border-width: 0.5px;
+  margin: 1%;
+  padding: 5px;
+  background-color: rgb(67,67,67);
+  color: white;
+}
+
+.ownedStockCard > h1:first-child {
+  color:red;
+}
+
+.ownedStockCard:hover, .watchlistStockCard:hover, .circle-text:hover {
+  background-color: rgb(87,87,87);
+}
+
+.ownedStockSymbol, .watchlistStockSymbol {
+  width: 100px;
+  margin: 10px;
+}
+
+.navbar {
+  float: right;
+  padding-top: 0.5%;
+  width: 100%;
+}
+
+.stockCardDetail {
+  padding: 5px;
+}
+
+.stockSharesDetail {
+  display: flex;
+}
+
+.circle-text {
+display: table-cell;
+height: 300px; /*change this and the width
+for the size of your initial circle*/
+width: 300px;
+text-align: center;
+vertical-align: middle;
+border-radius: 50%;
+border-width: 5px;
+/* margin-right: 300px; */
+border-style: solid;
+/*make it pretty*/
+/* background: #000; */
+color: #fff;
+font: 50px "josefin sans", arial; /*change this
+for font-size and font-family*/
 }

@@ -1,0 +1,27 @@
+.c3 {
+  background-color: rgb(67,67,67);
+  color: white;
+  border-color: green;
+  border-width: 0.5px;
+  border-radius: 25px;
+}
+
+.c3 svg {
+  font: 10px sans-serif;
+  color: rgba(100,100,100,10);
+}
+
+.c3 path, .c3 line {
+  fill: none;
+  stroke: white;
+}
+
+path.domain { stroke: white; }
+.tick text { stroke: white; }
+.c3-legend-item text { stroke: grey; }
+
+
+
+.inverted .c3 .c3-legend-item-data text {
+    fill: whitesmoke;
+  }
