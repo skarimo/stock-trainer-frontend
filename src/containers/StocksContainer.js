@@ -5,8 +5,9 @@ import OwnedStockCard from '../components/OwnedStockCard'
 import WatchlistStockCard from '../components/WatchlistStockCard'
 import SectionBalanceGraph from '../components/SectionBalanceGraph'
 import TodaysGain from '../components/TodaysGain'
+import NewsSection from '../components/NewsSection'
 
-import { buyStock, sellStock } from '../actions/stockActions'
+import { buyStock, sellStock, removeFromWatchlist } from '../actions/stockActions'
 
 
 
@@ -15,25 +16,42 @@ class StocksContainer extends Component {
     previousDayStocks: []
   }
 
+  removeFromWatchlist = (stockSymbol) => {
+    this.props.removeFromWatchlist({user_id :this.props.user_id, stock_symbol: stockSymbol})
+    this.props.addMessageToHomeScreen("Removed from watchlist")
+  }
+
   render() {
+    let ownedStockCardList = "You have no Owned Stocks"
+    let watchlistStockCardList = "You have no Stocks on your Watchlist"
+
     const { owned_stocks, watchlists } = this.props.stockList
-    const ownedStockCardList = owned_stocks.map(stock => <OwnedStockCard history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
-    const watchlistStockCardList = watchlists.map(stock => <WatchlistStockCard history={this.props.history} key={stock.id} stock={stock} />)
+    if (owned_stocks) {
+      ownedStockCardList = owned_stocks.map(stock => <OwnedStockCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
+    }
+    if (watchlists) {
+      watchlistStockCardList = watchlists.map(stock => <WatchlistStockCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} removeFromWatchlist={this.removeFromWatchlist} key={stock.id} stock={stock} />)
+    }
+
     return (
       <div className="stockContainer" style={{textAlign: 'center'}}>
         <div className="chartContainer">
-            <h1>Daily Change</h1>
             <TodaysGain />
-            <h1>Sector Performance</h1>
-            <SectionBalanceGraph />
+            {/* <h1>Sector Performance</h1>
+            <SectionBalanceGraph /> */}
         </div>
-        <div style={{overflowY: 'scroll', height:'700px'}}>
+        <div style={{overflowY: 'scroll', maxHeight:'600px'}}>
           <h1>Owned Stocks</h1>
           {ownedStockCardList}
         </div>
-        <div style={{overflowY: 'scroll', height:'700px'}}>
+        <div style={{overflowY: 'scroll', maxHeight:'600px'}}>
           <h1>Watchlisted Stocks:</h1>
           {watchlistStockCardList}
+        </div>
+
+        <div style={{overflowY: 'scroll', maxHeight:'600px'}}>
+          <h1>News Section</h1>
+          <NewsSection />
         </div>
       </div>
     )
@@ -44,6 +62,7 @@ class StocksContainer extends Component {
 
 const mapStateToProps = (state) => {
   return {
+    user_id: state.user.id,
     stockList: {owned_stocks: state.user.owned_stocks, sold_stocks: state.user.sold_stocks, watchlists: state.user.watchlists},
   }
 }
@@ -51,7 +70,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     buyStock: (stockData) => dispatch(buyStock(stockData)),
-    sellStock: (stockData) => dispatch(sellStock(stockData))
+    sellStock: (stockData) => dispatch(sellStock(stockData)),
+    removeFromWatchlist: (stockId) => dispatch(removeFromWatchlist(stockId))
   }
 }
 

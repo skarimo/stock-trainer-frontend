@@ -24,8 +24,10 @@ class Buy extends Component {
       console.log(this.state)
       if (this.state.shares_amount > 0 && this.state.share_price > 0 && (this.state.shares_amount * this.state.share_price < this.props.user.account_balance)) {
         this.props.buyStock(this.state)
+        this.props.handleModalClose()
+        this.props.addMessageToHomeScreen(`${this.state.shares_amount} shares of ${this.state.symbol} bought successfully`)
       } else {
-        alert("Invalid amount")
+        this.props.addMessageToModal("Invalid Amount. Try again.")
       }
     }
 

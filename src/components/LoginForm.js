@@ -6,12 +6,9 @@ const LoginForm = (props) => {
       <div className="column">
           <h2 className="ui green image header">
             {/*<img src="assets/images/logo.png" className="image" />*/}
-            <div className="content">
-              Log-in to your account
-            </div>
           </h2>
           <form className="ui large form">
-            <div className="ui stacked segment">
+            <div className="ui stacked segment" style={{backgroundColor: 'LightGrey'}}>
               <div className="field">
                 <div className="ui left icon input">
                   <i className="user icon"></i>
@@ -24,14 +21,14 @@ const LoginForm = (props) => {
                   <input onChange={props.handleLoginFormChange} type="password" name="password" placeholder="Password" />
                 </div>
               </div>
-              <button onClick={(e) => props.handleLoginSubmit(e)} className="ui fluid large green submit button">Login</button>
+              <button onClick={(e) => props.handleLoginSubmit(e)} className="ui fluid large green inverted submit button">Login</button>
             </div>
 
             <div className="ui error message"></div>
 
           </form>
 
-          <div className="ui message">
+          <div className="ui message" style={{backgroundColor: 'LightGrey'}}>
             New to us? <Link to='/signup'>Sign Up</Link>
           </div>
         </div>

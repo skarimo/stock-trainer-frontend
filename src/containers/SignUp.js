@@ -12,7 +12,8 @@ class SignUp extends Component {
       last_name: '',
       email: '',
       username: '',
-      password: ''
+      password: '',
+      account_balance: null
     }
   }
 

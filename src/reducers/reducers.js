@@ -39,7 +39,6 @@ export default function reducer(state = initialState, action) {
       console.log(action.payload)
       if (action.payload.deleted === true) {
         let owned_stocks = state.user.owned_stocks.filter((owned_stock)=> {
-          debugger
             return owned_stock.stock.symbol !== action.payload.stockSymbol
           })
         sellState = {...state, user: {...state.user, account_balance: action.payload.total_balance, owned_stocks:[...owned_stocks]}}
@@ -55,7 +54,38 @@ export default function reducer(state = initialState, action) {
         sellState = {...state, user: {...state.user, account_balance: action.payload.total_balance, owned_stocks:[...owned_stocks]}}
       }
       return sellState
+    case "ADD_WATCHLIST":
+      let newWatchlist = state.user.watchlists.slice()
+      newWatchlist.push(action.payload.stock_card)
+      return {...state, user: {...state.user, watchlists:[...newWatchlist]}}
+    case "REMOVE_WATCHLIST":
+      newWatchlist = state.user.watchlists.filter(stock => stock.stock.symbol !== action.payload.stock_symbol)
+      return {...state, user: {...state.user, watchlists:[...newWatchlist]}}
     default:
       return state
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

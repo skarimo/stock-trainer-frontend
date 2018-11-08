@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
 .App {
   text-align: center;
+  font-family: 'Titillium Web', sans-serif;
+
+
 }
 
 .column {
@@ -12,3 +17,7 @@ padding-top: 15%;
 padding-right: 1rem;
 vertical-align: top;
 }
+
+/* .ui .large .form {
+  background-color: pink;
+} */

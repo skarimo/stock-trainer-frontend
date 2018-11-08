@@ -45,16 +45,21 @@ class TodaysGain extends Component {
   render() {
         let percentChange;
         let dollarChange;
-        if (this.props.stockList.owned_stocks[0].liveStockData) {
-           percentChange = parseFloat(this.yesterdaysPercentage().toFixed(2))
-           dollarChange = parseFloat(this.yesterdaysDollarAmount().toFixed(2))
-        } else {
-           percentChange = "fix this later"
-           dollarChange = "fix this later"
-        }
+        if (this.props.stockList.owned_stocks != false) {
+          if (this.props.stockList.owned_stocks[0].liveStockData) {
+             percentChange = parseFloat(this.yesterdaysPercentage().toFixed(2))
+             dollarChange = parseFloat(this.yesterdaysDollarAmount().toFixed(2))
+          } else {
+             percentChange = "Loading"
+             dollarChange = "Loading"
+          }
+      } else {
+        percentChange = 0
+        dollarChange = 0
+      }
       return (
-        <div className="circleHolder" style={{}}>
-          <div className="circle-text" style={{borderColor: 'black', marginRight:'5px'}}>
+        <div className="circleHolder">
+          <div className="circle-text" style={{borderColor: '#A7F432', marginRight:'5px'}}>
             <div id="clock"></div>
           </div>
           <div className="circle-text" style={percentChange < 0 ? {borderColor: 'red'} : {borderColor: 'Lime'}}>

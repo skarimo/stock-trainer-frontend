@@ -5,13 +5,13 @@ import TradeModal from '../containers/TradePage'
 //
 // const history = createBrowserHistory();
 
-const OwnedStockCard = ({ stock, history }) => {
+const OwnedStockCard = ({ stock, history, addMessageToHomeScreen }) => {
   if(stock.liveStockData) {
     return (
       <div className="ownedStockCard" >
         <div className="ownedStockSymbol" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column', paddingRight:'3%' }}>
           <h1 style={{color:'#A7F432'}}>{stock.liveStockData.quote.symbol}</h1>
-          <TradeModal stock={stock.stock} liveData={stock.liveStockData.quote}/>
+          <TradeModal addMessageToHomeScreen={addMessageToHomeScreen} stock={stock.stock} liveData={stock.liveStockData.quote}/>
         </div>
         <div className="stockCardDetail" style={{textAlign: 'left'}} onClick={() => history.push(`/stock/${stock.stock.id}`, stock)}>
           <div>

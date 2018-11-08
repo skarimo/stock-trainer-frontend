@@ -11,6 +11,10 @@ import { updateStockInfoOnState } from '../actions/stockActions'
 
 class HomePage extends Component {
 
+  state = {
+    message: null
+  }
+
   componentWillMount() {
     this.props.updateStockInfoOnState(this.props.state)
     // this.refreshInterval = setInterval(() => this.props.updateStockInfoOnState(this.props.state), 1000, true);
@@ -23,18 +27,31 @@ class HomePage extends Component {
  // <div><StocksContainer /></div>
 // <Route exact path="/signup" render={(props) => <SignUp history={props.history} adapter={this.adapter} handleSignUp={this.handleSignUp} />} />
 
+  addMessageToHomeScreen = (message) => {this.setState({ message })}
+
+  renderMessage = () => {
+    if (this.state.message) {
+      return 'block'
+    } else {
+      return 'none'
+    }
+  }
 
   render() {
     return (
       <div style={{flexDirection:'column'}}>
+        <div className="ui success message" style={{display: this.renderMessage()}}>
+          <i className="close icon" onClick={() => this.setState({ message: null })}></i>
+          <div className="header">
+            {this.state.message}
+          </div>
+        </div>
         <BrowserRouter>
           <React.Fragment>
             <Route path="/" render={(props) => <Navbar history={props.history}/>} />
           <Switch>
-            <Route exact path="/trade" render={(props) => <TradePage history={props.history}/>} />
-            <Route exact path="/stock/:id" render={(props) => <StockShowPage history={props.history}/>} />
-            <Route exact path="/trade/:symbol" render={(props) => <TradePage history={props.history}/>} />
-            <Route path="/" render={(props) => <StocksContainer history={props.history}/>} />
+            <Route exact path="/stock/:id" render={(props) => <StockShowPage addMessageToHomeScreen={this.addMessageToHomeScreen} history={props.history}/>} />
+            <Route path="/" render={(props) => <StocksContainer addMessageToHomeScreen={this.addMessageToHomeScreen} history={props.history}/>} />
           </Switch>
           </React.Fragment>
         </BrowserRouter>

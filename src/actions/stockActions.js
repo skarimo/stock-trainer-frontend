@@ -1,6 +1,8 @@
 const refreshStockData = (userObj) => ({type: 'REFRESH_STOCK_DATA', payload: userObj})
 const buyStockAction = (stock_card) => ({type: 'BUY_STOCK', payload: stock_card})
 const sellStockAction = (stock_card) => ({type: 'SELL_STOCK', payload: stock_card})
+const addToWatchlistAction = (stock_card) => ({type: 'ADD_WATCHLIST', payload: stock_card})
+const removeFromWatchlistAction = (stock_card) => ({type: 'REMOVE_WATCHLIST', payload: stock_card})
 // const updatePreviousDayStocks = (stockList) => ({type: 'PREVIOUS_DAY_STOCK_DATA', payload: stockList})
 
 const token = localStorage.getItem("token")
@@ -79,6 +81,45 @@ async function fetchAllStocksList(stocksToFetch) {
       let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
       dispatch(sellStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance}))
     }
+    })
+    }
+  }
+
+  export const addToWatchlist = (load) => {
+    return (dispatch) => {
+      fetch(`http://localhost:3000/add_watchlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(load)
+    })
+    .then(r => r.json())
+    .then((stockInfo) => {
+      if (!stockInfo.already_added) {
+        let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
+        dispatch(addToWatchlistAction({stock_card: stock_card}))
+      }
+    })
+    }
+  }
+
+  export const removeFromWatchlist = (load) => {
+    return (dispatch) => {
+      fetch(`http://localhost:3000/remove_watchlist`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      },
+      body: JSON.stringify(load)
+    })
+    .then(r => r.json())
+    .then((stockInfo) => {
+      dispatch(removeFromWatchlistAction({stock_symbol: load.stock_symbol}))
     })
     }
   }
