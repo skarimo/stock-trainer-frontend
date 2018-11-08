@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Chart from '../components/Chart';
 import { withRouter } from 'react-router-dom';
 
+import TradeModal from '../containers/TradePage'
+
 import StockData from '../components/StockData'
 
 // import { connect } from 'react-redux'
@@ -9,7 +11,8 @@ import StockData from '../components/StockData'
 
 class StockShowPage extends Component {
   state = {
-    data: null
+    stockIntraday: null,
+    stockLiveData: null
   }
 
   symbol = () => {
@@ -21,14 +24,23 @@ class StockShowPage extends Component {
   }
 
   getStockData = () => {
-    fetch(`https://api.iextrading.com/1.0/stock/${this.symbol()}/chart/1d`).then(res => res.json())
+    const symbol = this.symbol()
+    let stockIntraday;
+    fetch(`https://api.iextrading.com/1.0/stock/${symbol}/chart/1d`).then(res => res.json())
     .then(resList => {
-      let data = resList.map((result) => {
+
+      stockIntraday = resList.map((result) => {
+        if (result.date && result.minute) {
           let date = new Date(result.date.slice(0,4) + '-' + result.date.slice(4,6) + '-' + result.date.slice(6,8) + 'T' + result.minute)
           return {date: date, high: result.high, low: result.low, open: result.open, close: result.close, volume: result.volume}
+        } else {
+          return null
+        }
         })
-        this.setState({ data: data })
-    })
+        if (stockIntraday === undefined || stockIntraday === null || stockIntraday === false) {
+          stockIntraday = null
+        }
+    }).then(() => fetch(`https://api.iextrading.com/1.0/stock/${symbol}/quote`)).then(res2=>res2.json()).then(stockLiveData => this.setState({ stockIntraday: stockIntraday, stockLiveData: stockLiveData }))
   }
 
 	componentDidMount() {
@@ -42,14 +54,19 @@ class StockShowPage extends Component {
   }
 
 	render() {
-		if (this.state.data != null && this.state.data.length > 0) {
+    // const d = new Date();
+    // const h = d.getHours();
+    // const m = d.getMinutes()
+
+		if (this.state.stockIntraday != null && this.state.stockIntraday.length) {
 			return (
       <div className="stockContainer" style={{marginBottom: '5%'}}>
-        <h1 style={{width: '100%', textAlign: 'center'}}>{this.symbol()} <button className='ui inverted green button' onClick={() => this.props.history.push(`/trade/${this.symbol()}`)}>Trade</button></h1>
+        <h1 style={{width: '100%', textAlign: 'center'}}>{this.symbol()} <TradeModal stock={{...this.props.location.state.stock}} liveData={this.state.stockLiveData}/> </h1>
         <div style={{backgroundColor:'lightgreen', marginRight:'5%'}}>
-          <Chart type={'hybrid'} data={this.state.data} />
+          <h3>Daily Gain Chart</h3>
+          <Chart type={'hybrid'} data={this.state.stockIntraday} />
         </div>
-        <StockData symbol={this.symbol()}/>
+        <StockData symbol={this.symbol()} />
       </div>
     )
 		}

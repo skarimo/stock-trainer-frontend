@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import { withRouter } from 'react-router'
-
 import StocksContainer from './StocksContainer'
 import Navbar from '../components/Navbar'
 import TradePage from './TradePage'
@@ -13,7 +11,7 @@ import { updateStockInfoOnState } from '../actions/stockActions'
 
 class HomePage extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.updateStockInfoOnState(this.props.state)
     // this.refreshInterval = setInterval(() => this.props.updateStockInfoOnState(this.props.state), 1000, true);
   }
@@ -63,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HomePage))
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)

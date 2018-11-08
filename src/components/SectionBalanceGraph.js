@@ -6,6 +6,19 @@ import { Chart, Ticks, Layer, Bars } from 'rumble-charts';
 
 
 class SectionBalanceGraph extends Component {
+  state = {
+    data: []
+  }
+
+  componentDidMount() {
+    fetch(`https://api.iextrading.com/1.0/stock/market/sector-performance`).then(res => res.json())
+    .then(resList => {
+      let data = resList.map((result) => {
+          return {name: result.name, data: [result.performance]}
+        })
+        this.setState({ data: data })
+    })
+  }
 
   render() {
     const series = [{
@@ -49,7 +62,6 @@ class SectionBalanceGraph extends Component {
 
 
 const mapStateToProps = (state) => {
-  let data
   return {
     stockList: {owned_stocks: state.user.owned_stocks, sold_stocks: state.user.sold_stocks, watchlists: state.user.watchlists}
   }

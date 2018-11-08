@@ -1,6 +1,8 @@
 const refreshStockData = (userObj) => ({type: 'REFRESH_STOCK_DATA', payload: userObj})
+const buyStockAction = (stock_card) => ({type: 'BUY_STOCK', payload: stock_card})
 // const updatePreviousDayStocks = (stockList) => ({type: 'PREVIOUS_DAY_STOCK_DATA', payload: stockList})
 
+const token = localStorage.getItem("token")
 
 const fetchStockInfo = (stockList) => {
     if (stockList) {
@@ -39,23 +41,27 @@ async function fetchAllStocksList(stocksToFetch) {
 
   export const buyStock = (stockCard) => {
     return (dispatch) => {
-      fetch(`http://localhost:3000/api/v1/owned_stocks`, {
+      fetch(`http://localhost:3000/buy_stock`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': `${token}`
       },
       body: JSON.stringify(stockCard)
     })
     .then(r => r.json())
-    .then(stockInfo => dispatch({type: 'BUY_STOCK', payload: stockCard}))
+    .then((stockInfo) => {
+      let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
+      dispatch(buyStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance}))
+    })
     }
   }
 
 
   export const sellStock = (stockInfo) => {
     return (dispatch) => {
-      fetch(`http://localhost:3000/api/v1/owned_stocks`, {
+      fetch(`http://localhost:3000/sell_stock`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

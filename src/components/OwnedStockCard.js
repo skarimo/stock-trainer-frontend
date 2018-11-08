@@ -1,19 +1,19 @@
 import React from 'react'
+import TradeModal from '../containers/TradePage'
 // import { connect } from 'react-redux'
 // import { createBrowserHistory } from "history";
 //
 // const history = createBrowserHistory();
 
-const OwnedStockCard = ({ stock, buyStock, sellStock, history }) => {
+const OwnedStockCard = ({ stock, history }) => {
   if(stock.liveStockData) {
-    console.log(stock)
     return (
       <div className="ownedStockCard" >
         <div className="ownedStockSymbol" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column', paddingRight:'3%' }}>
           <h1 style={{color:'#A7F432'}}>{stock.liveStockData.quote.symbol}</h1>
-            <button className='ui inverted green button' style={{paddingLeft:'20%'}} onClick={() => history.push(`/trade/${stock.stock.symbol}`)}>Trade</button>
+          <TradeModal stock={stock.stock} liveData={stock.liveStockData.quote}/>
         </div>
-        <div className="stockCardDetail" style={{textAlign: 'left'}} onClick={() => history.push(`/stock/${stock.id}`, stock)}>
+        <div className="stockCardDetail" style={{textAlign: 'left'}} onClick={() => history.push(`/stock/${stock.stock.id}`, stock)}>
           <div>
             <div style={{paddingBottom:'20px'}}><h3>{stock.stock.name}</h3></div>
             <div>

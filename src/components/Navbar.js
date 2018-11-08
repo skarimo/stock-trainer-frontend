@@ -12,7 +12,8 @@ class Navbar extends Component {
     super()
     this.state = {
       searchTerm: "",
-      searchResults: []
+      searchResults: [],
+      isLoading: false
     }
   }
 
@@ -33,11 +34,11 @@ class Navbar extends Component {
       body: JSON.stringify({'search_term': this.state.searchTerm})
       })
       .then(r => r.json())
-      .then(searchResults => { this.setState({ searchResults })})
+      .then(searchResults => { this.setState({ searchResults: searchResults, isLoading: false })})
   }
 
   handleSearchTermChange = (e, { value }) => {
-    this.setState({ searchTerm: value })
+    this.setState({ searchTerm: value, isLoading: true })
     this.getSearchResults()
   }
 
@@ -51,13 +52,14 @@ class Navbar extends Component {
     })
 
     return (
-      <div className="navbar">
+      <div className="navbar" style={{margin: "1%"}}>
         <div className="ui search">
-          <button className="ui green button" onClick={this.handleOnLogoutClick}>Logout</button>
+          <button onClick={() => this.props.history.push(`/`)} className="ui green button">HOME</button>
           <div className="ui icon input">
-            <Search onSearchChange={_.debounce(this.handleSearchTermChange, 1000)} onResultSelect={this.handleResultSelect} placeholder="Search stock..." showNoResults={true} results={results} />
+            <Search loading={this.state.isLoading} onSearchChange={_.debounce(this.handleSearchTermChange, 1000)} onResultSelect={this.handleResultSelect} placeholder="Search stock..." showNoResults={true} results={results} />
             <i className="search icon"></i>
           </div>
+          <button style={{float:'right'}} className="ui red button" onClick={this.handleOnLogoutClick}>Logout</button>
         </div>
     </div>
     )

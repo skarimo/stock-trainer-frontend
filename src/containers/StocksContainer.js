@@ -19,7 +19,6 @@ class StocksContainer extends Component {
     const { owned_stocks, watchlists } = this.props.stockList
     const ownedStockCardList = owned_stocks.map(stock => <OwnedStockCard history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
     const watchlistStockCardList = watchlists.map(stock => <WatchlistStockCard history={this.props.history} key={stock.id} stock={stock} />)
-
     return (
       <div className="stockContainer" style={{textAlign: 'center'}}>
         <div className="chartContainer">

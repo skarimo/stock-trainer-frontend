@@ -13,7 +13,6 @@ class StockData extends Component {
   }
   //
   render() {
-    console.log(this.state.stockData)
     const stockData = this.state.stockData
     return (
       <div>
