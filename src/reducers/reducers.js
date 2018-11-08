@@ -32,11 +32,29 @@ export default function reducer(state = initialState, action) {
         if (exist === false) {
           owned_stocks.push(action.payload.stock_card)
         }
-        let newState = {...state, user: {...state.user, account_balance: action.payload.total_balance, owned_stocks:[...owned_stocks]}}
-      return newState
+        let buyState = {...state, user: {...state.user, account_balance: action.payload.total_balance, owned_stocks:[...owned_stocks]}}
+      return buyState
     case "SELL_STOCK":
-      console.log(action.payload.stock_card)
-      return state
+      let sellState;
+      console.log(action.payload)
+      if (action.payload.deleted === true) {
+        let owned_stocks = state.user.owned_stocks.filter((owned_stock)=> {
+          debugger
+            return owned_stock.stock.symbol !== action.payload.stockSymbol
+          })
+        sellState = {...state, user: {...state.user, account_balance: action.payload.total_balance, owned_stocks:[...owned_stocks]}}
+      } else {
+        let owned_stocks = state.user.owned_stocks.map((owned_stock)=> {
+            if (owned_stock.id === action.payload.stock_card.id) {
+              exist = true
+              return {...owned_stock, ...action.payload.stock_card}
+            } else {
+              return owned_stock
+            }
+          })
+        sellState = {...state, user: {...state.user, account_balance: action.payload.total_balance, owned_stocks:[...owned_stocks]}}
+      }
+      return sellState
     default:
       return state
   }

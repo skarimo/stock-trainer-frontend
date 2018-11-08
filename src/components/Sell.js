@@ -10,8 +10,7 @@ class Sell extends Component {
         user_id: user.id,
         shares_amount: 0,
         share_price: 0,
-        symbol: stock.symbol,
-        liveData: liveData
+        symbol: stock.symbol
       }
     }
 
@@ -19,13 +18,13 @@ class Sell extends Component {
       this.setState({ [e.target.name]: e.target.value })
     }
 
-    submitShareSell = (e) => {
+    submitShareSell = (e, ownedStock) => {
       e.preventDefault()
-      // if (this.state.shares_amount > 0 && this.state.share_price > 0 && (this.state.shares_amount * this.state.share_price < this.props.user.account_balance)) {
-      //   this.props.buyStock(this.state)
-      // } else {
-      //   alert("Invalid amount")
-      // }
+      if (ownedStock.owned_shares >= this.state.shares_amount) {
+        this.props.sellStock(this.state)
+      } else {
+        alert("Invalid amount")
+      }
     }
 
     showForm = () => {
@@ -37,7 +36,7 @@ class Sell extends Component {
       }
       if (ownedCurrentStockCard) {
         return (
-          <form className="ui form" style={{color: 'black'}}>
+          <form onSubmit={(e) => this.submitShareSell(e, ownedCurrentStockCard)} className="ui form" style={{color: 'black'}}>
             <h2>Current Price per share: ${ownedCurrentStockCard.liveStockData.quote.latestPrice}</h2>
               <label>Shares of {this.props.stock.symbol} to sell</label>
               <input onChange={this.onChangeHandler} type="number" name="shares_amount" placeholder={"Shares owned " + ownedCurrentStockCard.owned_shares} />

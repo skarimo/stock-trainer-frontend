@@ -58,7 +58,7 @@ class TodaysGain extends Component {
             <div id="clock"></div>
           </div>
           <div className="circle-text" style={percentChange < 0 ? {borderColor: 'red'} : {borderColor: 'Lime'}}>
-            {percentChange < 0 ? (<React.Fragment><b style={{color:'Red '}}>↑ +{percentChange}%</b><p style={{fontSize:'20px', color:'Red'}}>+${dollarChange}</p></React.Fragment>) : (<React.Fragment><b style={{color:'Lime '}}>↑ +{percentChange}%</b><p style={{fontSize:'20px', color:'Lime '}}>+${dollarChange}</p></React.Fragment>)}
+            {percentChange < 0 ? (<React.Fragment><b style={{color:'Red '}}> ↓ {percentChange}%</b><p style={{fontSize:'20px', color:'Red'}}>${dollarChange}</p></React.Fragment>) : (<React.Fragment><b style={{color:'Lime '}}>↑ +{percentChange}%</b><p style={{fontSize:'20px', color:'Lime '}}>+${dollarChange}</p></React.Fragment>)}
           </div>
         </div>
       )

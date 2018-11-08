@@ -27,11 +27,11 @@ class StocksContainer extends Component {
             <h1>Sector Performance</h1>
             <SectionBalanceGraph />
         </div>
-        <div>
+        <div style={{overflowY: 'scroll', height:'700px'}}>
           <h1>Owned Stocks</h1>
           {ownedStockCardList}
         </div>
-        <div>
+        <div style={{overflowY: 'scroll', height:'700px'}}>
           <h1>Watchlisted Stocks:</h1>
           {watchlistStockCardList}
         </div>

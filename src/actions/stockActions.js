@@ -1,5 +1,6 @@
 const refreshStockData = (userObj) => ({type: 'REFRESH_STOCK_DATA', payload: userObj})
 const buyStockAction = (stock_card) => ({type: 'BUY_STOCK', payload: stock_card})
+const sellStockAction = (stock_card) => ({type: 'SELL_STOCK', payload: stock_card})
 // const updatePreviousDayStocks = (stockList) => ({type: 'PREVIOUS_DAY_STOCK_DATA', payload: stockList})
 
 const token = localStorage.getItem("token")
@@ -59,18 +60,26 @@ async function fetchAllStocksList(stocksToFetch) {
   }
 
 
-  export const sellStock = (stockInfo) => {
+  export const sellStock = (stockCard) => {
     return (dispatch) => {
       fetch(`http://localhost:3000/sell_stock`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        'Accept': 'application/json',
+        'Authorization': `${token}`
       },
-      body: JSON.stringify(stockInfo)
+      body: JSON.stringify(stockCard)
     })
     .then(r => r.json())
-    .then(stockCard => dispatch({type: 'SELL_STOCK', payload: stockInfo}))
+    .then((stockInfo) => {
+      if (stockInfo.message) {
+        dispatch(sellStockAction({deleted: true, total_balance: stockInfo.new_balance, stockSymbol: stockCard.symbol}))
+      } else {
+      let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
+      dispatch(sellStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance}))
+    }
+    })
     }
   }
 

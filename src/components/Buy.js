@@ -4,14 +4,13 @@ import { buyStock } from '../actions/stockActions'
 
 
 class Buy extends Component {
-    constructor({ stock, liveData, user }) {
+    constructor({ stock, user }) {
       super()
       this.state = {
         user_id: user.id,
         shares_amount: 0,
         share_price: 0,
-        symbol: stock.symbol,
-        liveData: liveData
+        symbol: stock.symbol
       }
     }
 
@@ -22,6 +21,7 @@ class Buy extends Component {
 
     submitShareBuy = (e) => {
       e.preventDefault()
+      console.log(this.state)
       if (this.state.shares_amount > 0 && this.state.share_price > 0 && (this.state.shares_amount * this.state.share_price < this.props.user.account_balance)) {
         this.props.buyStock(this.state)
       } else {
@@ -33,7 +33,7 @@ class Buy extends Component {
     render() {
       return (
         <form onSubmit={this.submitShareBuy} className="ui form" style={{color: 'black'}}>
-          <h2>Current Price per share: ${this.state.liveData.latestPrice}</h2>
+          <h2>Current Price per share: ${this.props.liveData.latestPrice}</h2>
             <label>Shares of {this.props.stock.symbol}</label>
             <input onChange={this.onChangeHandler} type="number" name="shares_amount" placeholder="Shares to buy" />
 

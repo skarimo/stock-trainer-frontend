@@ -56,7 +56,7 @@ class Navbar extends Component {
         <div className="ui search">
           <button onClick={() => this.props.history.push(`/`)} className="ui green button">HOME</button>
           <div className="ui icon input">
-            <Search loading={this.state.isLoading} onSearchChange={_.debounce(this.handleSearchTermChange, 1000)} onResultSelect={this.handleResultSelect} placeholder="Search stock..." showNoResults={true} results={results} />
+            <Search loading={this.state.isLoading} onSearchChange={_.debounce(this.handleSearchTermChange, 500)} onResultSelect={this.handleResultSelect} placeholder="Search stock..." showNoResults={true} results={results} />
             <i className="search icon"></i>
           </div>
           <button style={{float:'right'}} className="ui red button" onClick={this.handleOnLogoutClick}>Logout</button>

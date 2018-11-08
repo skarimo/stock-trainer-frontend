@@ -57,11 +57,11 @@ class StockShowPage extends Component {
     // const d = new Date();
     // const h = d.getHours();
     // const m = d.getMinutes()
-
+    console.log(this.props.location.state)
 		if (this.state.stockIntraday != null && this.state.stockIntraday.length) {
 			return (
       <div className="stockContainer" style={{marginBottom: '5%'}}>
-        <h1 style={{width: '100%', textAlign: 'center'}}>{this.symbol()} <TradeModal stock={{...this.props.location.state.stock}} liveData={this.state.stockLiveData}/> </h1>
+        <h1 style={{width: '100%', textAlign: 'center'}}>{this.symbol()} <TradeModal stock={{...this.props.location.state}} liveData={this.state.stockLiveData}/> </h1>
         <div style={{backgroundColor:'lightgreen', marginRight:'5%'}}>
           <h3>Daily Gain Chart</h3>
           <Chart type={'hybrid'} data={this.state.stockIntraday} />
