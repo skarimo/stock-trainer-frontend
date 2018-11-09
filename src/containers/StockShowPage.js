@@ -3,7 +3,7 @@ import Chart from '../components/Chart';
 import { withRouter } from 'react-router-dom';
 
 import TradeModal from '../containers/TradePage'
-
+// import OwnedStockCardForShowPage from '../components/OwnedStockCardForShowPage'
 import StockData from '../components/StockData'
 
 import { connect } from 'react-redux'
@@ -38,7 +38,7 @@ class StockShowPage extends Component {
         if (stockIntraday === undefined || stockIntraday === null || stockIntraday === false) {
           stockIntraday = null
         }
-    }).then(() => fetch(`https://api.iextrading.com/1.0/stock/${symbol}/quote`)).then(res2=>res2.json()).then(stockLiveData => this.setState({ stockIntraday: stockIntraday, stockLiveData: stockLiveData }))
+    }).then(() => fetch(`https://api.iextrading.com/1.0/stock/${symbol}/quote`)).then(res2=>res2.json()).then(stockLiveData => this.setState({ stockIntraday, stockLiveData }))
   }
 
   addToWatchlist = () => {
@@ -55,8 +55,8 @@ class StockShowPage extends Component {
 		this.getStockData()
 	}
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.id !== this.props.match.params.id) {
+  componentWillUpdate(prevProps) {
+    if (prevProps.match.params.id != this.props.match.params.id) {
     this.getStockData()
     }
   }
@@ -69,8 +69,8 @@ class StockShowPage extends Component {
     if (stock === undefined) {
       stock = this.props.location.state
     }
-
     const checkWatchlist = this.props.watchlists.filter((stock) => stock.stock.symbol === this.symbol())
+
 		if (this.state.stockIntraday != null && this.state.stockIntraday.length) {
 			return (
       <div className="stockContainer" style={{marginBottom: '5%'}}>
@@ -84,7 +84,7 @@ class StockShowPage extends Component {
     )
 		}
 		return (
-       <div>No data to show for this stock</div>
+       <div>No data to show for this stock at the moment</div>
 		)
 	}
 }

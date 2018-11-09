@@ -19,6 +19,8 @@ export default function reducer(state = initialState, action) {
       return {...state, user:{...action.payload}}
     case "REFRESH_STOCK_DATA":
       return {...state, user:{...state.user, ...action.payload}}
+    case "ADD_BALANCE":
+      return {...state, user:{...state.user, ...action.payload}}
     case "BUY_STOCK":
       let exist = false
       let owned_stocks = state.user.owned_stocks.map((owned_stock)=> {

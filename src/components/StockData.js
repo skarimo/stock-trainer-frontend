@@ -3,20 +3,30 @@ import React, { Component } from 'react'
 
 
 class StockData extends Component {
-  state = {
-    stockData: ''
+    state = {
+      stockData: ''
+    }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.symbol !== this.props.symbol) {
+      this.getData()
+    }
+  }
+
+  getData = () => {
+    fetch(`https://api.iextrading.com/1.0/stock/${this.props.symbol}/quote`).then(res => res.json())
+    .then(stockData => this.setState({ stockData }))
   }
 
   componentDidMount() {
-    fetch(`https://api.iextrading.com/1.0/stock/${this.props.symbol}/quote`).then(res => res.json())
-    .then(stockData => this.setState({ stockData }))
+    this.getData()
   }
   //
   render() {
     const stockData = this.state.stockData
     return (
       <div>
-        <h2>{stockData.companyName}</h2>
+        <h2 style={{maxWidth: '500px'}}>{stockData.companyName}</h2>
         <div>
             <ul style={{listStyleType:'none'}}>
               <li style={{marginBottom: '1%'}}>

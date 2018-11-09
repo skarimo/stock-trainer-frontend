@@ -12,7 +12,7 @@ import { login, authorizeToken } from '../actions/authorizeActions'
 class Login extends Component {
 
   state = {
-    email: null,
+    username: null,
     password: null
   }
 

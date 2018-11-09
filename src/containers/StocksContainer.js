@@ -41,15 +41,15 @@ class StocksContainer extends Component {
             <SectionBalanceGraph /> */}
         </div>
         <div style={{overflowY: 'scroll', maxHeight:'600px'}}>
-          <h1>Owned Stocks</h1>
+          {ownedStockCardList.length > 0 ? <h1>Owned Stocks:</h1> : null}
           {ownedStockCardList}
         </div>
         <div style={{overflowY: 'scroll', maxHeight:'600px'}}>
-          <h1>Watchlisted Stocks:</h1>
+          {watchlistStockCardList.length > 0 ? <h1>Watchlisted Stocks:</h1> : null}
           {watchlistStockCardList}
         </div>
 
-        <div style={{overflowY: 'scroll', maxHeight:'600px'}}>
+        <div style={{/*overflowY: 'scroll', maxHeight:'600px'*/}}>
           <h1>News Section</h1>
           <NewsSection />
         </div>

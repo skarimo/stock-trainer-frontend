@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import AddBalance from './AddBalance'
+
 
 class TodaysGain extends Component {
 
@@ -58,14 +60,17 @@ class TodaysGain extends Component {
         dollarChange = 0
       }
       return (
-        <div className="circleHolder">
-          <div className="circle-text" style={{borderColor: '#A7F432', marginRight:'5px'}}>
-            <div id="clock"></div>
+        <React.Fragment>
+          <div className="circleHolder">
+            <h3>Account Balance: <b style={{color: 'Lime', paddingRight:'1%'}}>${this.props.total_balance}</b><AddBalance /></h3>
+            <div className="circle-text" style={{borderColor: '#A7F432', marginRight:'5px'}}>
+              <div id="clock"></div>
+            </div>
+            <div className="circle-text" style={percentChange < 0 ? {borderColor: 'red'} : {borderColor: 'Lime'}}>
+              {percentChange < 0 ? (<React.Fragment><b style={{color:'Red '}}> ↓ {percentChange}%</b><p style={{fontSize:'20px', color:'Red'}}>${dollarChange}</p></React.Fragment>) : (<React.Fragment><b style={{color:'Lime '}}>↑ +{percentChange}%</b><p style={{fontSize:'20px', color:'Lime '}}>+${dollarChange}</p></React.Fragment>)}
+            </div>
           </div>
-          <div className="circle-text" style={percentChange < 0 ? {borderColor: 'red'} : {borderColor: 'Lime'}}>
-            {percentChange < 0 ? (<React.Fragment><b style={{color:'Red '}}> ↓ {percentChange}%</b><p style={{fontSize:'20px', color:'Red'}}>${dollarChange}</p></React.Fragment>) : (<React.Fragment><b style={{color:'Lime '}}>↑ +{percentChange}%</b><p style={{fontSize:'20px', color:'Lime '}}>+${dollarChange}</p></React.Fragment>)}
-          </div>
-        </div>
+        </React.Fragment>
       )
     }
 }

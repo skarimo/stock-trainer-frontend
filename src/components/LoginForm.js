@@ -12,7 +12,7 @@ const LoginForm = (props) => {
               <div className="field">
                 <div className="ui left icon input">
                   <i className="user icon"></i>
-                  <input onChange={props.handleLoginFormChange} type="text" name="email" placeholder="E-mail address" />
+                  <input onChange={props.handleLoginFormChange} type="text" name="username" placeholder="Username" />
                 </div>
               </div>
               <div className="field">

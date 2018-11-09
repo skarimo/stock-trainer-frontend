@@ -22,14 +22,14 @@ class Trade extends Component {
       return (
         <React.Fragment>
           <Header style={{color:'green'}}>Buy Form</Header>
-          <Buy addMessageToModal={this.addMessageToModal} handleModalClose={this.handleModalClose} addMessageToHomeScreen={this.props.addMessageToHomeScreen} stock={this.state.stock} liveData={this.props.liveData} submitShareBuy={this.submitShareBuy} />
+          <Buy addMessageToModal={this.addMessageToModal} handleModalClose={this.handleModalClose} addMessageToHomeScreen={this.props.addMessageToHomeScreen} stock={this.props.stock} liveData={this.props.liveData} submitShareBuy={this.submitShareBuy} />
         </React.Fragment>
       )
     } else {
       return (
         <React.Fragment>
           <Header style={{color:'red'}}>Sell Form</Header>
-          <Sell addMessageToModal={this.addMessageToModal} handleModalClose={this.handleModalClose} stock={this.state.stock} addMessageToHomeScreen={this.props.addMessageToHomeScreen} />
+          <Sell addMessageToModal={this.addMessageToModal} handleModalClose={this.handleModalClose} stock={this.props.stock} addMessageToHomeScreen={this.props.addMessageToHomeScreen} />
         </React.Fragment>
       )
     }
@@ -68,102 +68,3 @@ class Trade extends Component {
 }
 
 export default Trade
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- // import React, { Component } from 'react'
-// import { connect } from 'react-redux'
-// import { withRouter } from 'react-router'
-//
-// import Buy from '../components/Buy'
-// import Sell from '../components/Sell'
-//
-// import { buyStock, sellStock } from '../actions/stockActions'
-//
-//
-// class TradePage extends Component {
-//   // constructor({ symbol }) {
-//     state = {
-//       symbol: this.props.match.params.symbol
-//     }
-//   // }
-//   symbol = () => this.props.match.params.symbol
-//
-//   showPage = () => {
-//     let ownedStocks = null
-//     let ownedCurrentStockCard = null
-//
-//     ownedStocks = this.props.stockList.owned_stocks
-//
-//     if (ownedStocks) {
-//        ownedCurrentStockCard = ownedStocks.filter(stock => stock.stock.symbol === this.symbol())[0]
-//     }
-//
-//     if (ownedCurrentStockCard) {
-//       return (
-//         <React.Fragment>
-//           <Buy />
-//           <Sell />
-//         </React.Fragment>)
-//     } else {
-//       return (
-//         <React.Fragment>
-//           <Buy />
-//         </React.Fragment>)
-//     }
-//   }
-//
-//
-//   render() {
-//     return (
-//       <div className="stockContainer">
-//           <div style={{display:'inline-block', align:'center', width:'100%'}}>
-//             <button>Buy Form</button>
-//             <button>Sell Form</button>
-//           </div>
-//           {this.showPage()}
-//       </div>
-//     )
-//   }
-// }
-//
-// const mapStateToProps = (state) => {
-//   return {
-//     stockList: {owned_stocks: state.user.owned_stocks},
-//     user: state.user,
-//   }
-// }
-//
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     buyStock: (stockData) => dispatch(buyStock(stockData)),
-//     sellStock: (stockData) => dispatch(sellStock(stockData))
-//   }
-// }
-//
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TradePage))

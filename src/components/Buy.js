@@ -4,19 +4,26 @@ import { buyStock } from '../actions/stockActions'
 
 
 class Buy extends Component {
-    constructor({ stock, user }) {
+    constructor({ user }) {
       super()
       this.state = {
         user_id: user.id,
         shares_amount: 0,
         share_price: 0,
-        symbol: stock.symbol
+        symbol: ''
       }
     }
 
+    componentDidMount() {
+      this.setState({ symbol: this.props.stock.symbol})
+    }
 
     onChangeHandler = (e) => {
       this.setState({ [e.target.name]: e.target.value })
+    }
+
+    componentDidUpdate(prevProps) {
+      console.log(prevProps, this.props)
     }
 
     submitShareBuy = (e) => {
