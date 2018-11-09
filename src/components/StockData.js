@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-// import { connect } from 'react-redux'
+import { connect } from 'react-redux'
 
 
 class StockData extends Component {
@@ -21,9 +21,29 @@ class StockData extends Component {
   componentDidMount() {
     this.getData()
   }
-  //
+
+  showOwnedCard(owned_stock) {
+    return (
+      <div className="ownedStockCard">
+        <ul style={{listStyleType:'none'}}>
+          <li style={{marginBottom: '1%'}}>
+            <h3><b style={{color:'lightgreen'}}>Owned Shares:</b> {owned_stock.owned_shares}</h3>
+          </li>
+          <li style={{marginBottom: '1%'}}>
+            <h3><b style={{color:'lightgreen'}}>Status:</b> {owned_stock.status.name}</h3>
+          </li>
+          <li style={{marginBottom: '1%'}}>
+            <h3><b style={{color:'lightgreen'}}>Average buy price:</b> {owned_stock.buy_price}</h3>
+          </li>
+        </ul>
+      </div>
+    )
+  }
+
   render() {
     const stockData = this.state.stockData
+    const owned_stock = this.props.owned_stocks.filter(stock => stock.stock.symbol === stockData.symbol)[0]
+
     return (
       <div>
         <h2 style={{maxWidth: '500px'}}>{stockData.companyName}</h2>
@@ -58,11 +78,19 @@ class StockData extends Component {
               </li>
             </ul>
         </div>
+        <div>
+          {owned_stock ? this.showOwnedCard(owned_stock) : null}
+        </div>
       </div>
     )
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    owned_stocks: state.user.owned_stocks
+  }
+}
 
 
-export default StockData
+export default connect(mapStateToProps)(StockData)
