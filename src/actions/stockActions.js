@@ -3,6 +3,8 @@ const buyStockAction = (stock_card) => ({type: 'BUY_STOCK', payload: stock_card}
 const sellStockAction = (stock_card) => ({type: 'SELL_STOCK', payload: stock_card})
 const addToWatchlistAction = (stock_card) => ({type: 'ADD_WATCHLIST', payload: stock_card})
 const removeFromWatchlistAction = (stock_card) => ({type: 'REMOVE_WATCHLIST', payload: stock_card})
+const updateUserStocksAction = (stockObj) => ({type: 'UPDATE_STOCKS', payload: stockObj})
+const cancelSaleAction = (soldStockID) => ({type: 'CANCEL_PURCHASE', payload: soldStockID})
 // const updatePreviousDayStocks = (stockList) => ({type: 'PREVIOUS_DAY_STOCK_DATA', payload: stockList})
 
 const token = localStorage.getItem("token")
@@ -79,7 +81,7 @@ async function fetchAllStocksList(stocksToFetch) {
         dispatch(sellStockAction({deleted: true, total_balance: stockInfo.new_balance, stockSymbol: stockCard.symbol}))
       } else {
       let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
-      dispatch(sellStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance}))
+      dispatch(sellStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance, sold_stock_card: stockInfo.sold_stock_card}))
     }
     })
     }
@@ -124,20 +126,40 @@ async function fetchAllStocksList(stocksToFetch) {
     }
   }
 
-  // export const searchStock = (name) => {
-  //   return (dispatch) => {
-  //     fetch(`http://localhost:3000/api/v1/owned_stocks`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       'Accept': 'application/json'
-  //     },
-  //     body: JSON.stringify(name)
-  //   })
-  //   .then(r => r.json())
-  //   .then(stockCard => dispatch({type: 'SEARCH_STOCK_RESULT', payload: stockInfo}))
-  //   }
-  // }
+  export const updateUserStocks = (userID) => {
+    return (dispatch) => {
+      fetch(`http://localhost:3000/update_user_stocks/${userID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
+    .then(r => r.json())
+    .then(newStocksInfo => {
+      dispatch(updateUserStocksAction(newStocksInfo))
+    })
+    }
+  }
+
+  export const cancelSale = (soldStockID) => {
+    return (dispatch) => {
+      fetch(`http://localhost:3000/sold_stocks/${soldStockID}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
+    .then(r => r.json())
+    .then(res => {
+      dispatch(cancelSaleAction({sold_stock_id: soldStockID}))
+    })
+    }
+  }
+
 
 
 // ???????????????????////////////////////////////////////////////////////////////////

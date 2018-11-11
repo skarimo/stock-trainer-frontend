@@ -23,6 +23,13 @@ class StockData extends Component {
   }
 
   showOwnedCard(owned_stock) {
+    let status = null
+    if (owned_stock.status_id === 2) {
+      status = "PENDING"
+    } else if (owned_stock.status_id === 1) {
+      status = "COMPLETED"
+    }
+
     return (
       <div className="ownedStockCard">
         <ul style={{listStyleType:'none'}}>
@@ -30,7 +37,7 @@ class StockData extends Component {
             <h3><b style={{color:'lightgreen'}}>Owned Shares:</b> {owned_stock.owned_shares}</h3>
           </li>
           <li style={{marginBottom: '1%'}}>
-            <h3><b style={{color:'lightgreen'}}>Status:</b> {owned_stock.status.name}</h3>
+            <h3><b style={{color:'lightgreen'}}>Status:</b> {status ? status : owned_stock.status.name}</h3>
           </li>
           <li style={{marginBottom: '1%'}}>
             <h3><b style={{color:'lightgreen'}}>Average buy price:</b> {owned_stock.buy_price}</h3>
@@ -60,6 +67,9 @@ class StockData extends Component {
               </li>
             <li style={{marginBottom: '1%'}}>
                 <h3><b style={{color:'lightgreen'}}>Low:</b> ${stockData.low}</h3>
+              </li>
+            <li style={{marginBottom: '1%'}}>
+                <h3><b style={{color:'lightgreen'}}>Latest Volume:</b>{stockData.latestVolume}</h3>
               </li>
             <li style={{marginBottom: '1%'}}>
                 <h3><b style={{color:'lightgreen'}}>Previous Close:</b> ${stockData.previousClose}</h3>

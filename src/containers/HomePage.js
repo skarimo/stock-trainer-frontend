@@ -4,10 +4,11 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import StocksContainer from './StocksContainer'
 import Navbar from '../components/Navbar'
-import TradePage from './TradePage'
+// import TradePage from './TradePage'
 import StockShowPage from './StockShowPage'
 
 import { updateStockInfoOnState } from '../actions/stockActions'
+import { updateUserStocks } from '../actions/stockActions'
 
 class HomePage extends Component {
 
@@ -17,7 +18,12 @@ class HomePage extends Component {
 
   componentWillMount() {
     this.props.updateStockInfoOnState(this.props.state)
-    // this.refreshInterval = setInterval(() => this.props.updateStockInfoOnState(this.props.state), 1000, true);
+    // this.props.updateUserStocks(this.props.user_id)
+
+    this.refreshInterval = setInterval(() => {
+      // this.props.updateStockInfoOnState(this.props.state)
+      this.props.updateUserStocks(this.props.user_id)
+    }, 10000, true);
   }
 
   componentWillUnmount() {
@@ -67,13 +73,15 @@ class HomePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    state: {owned_stocks: state.user.owned_stocks, sold_stocks: state.user.sold_stocks, watchlists: state.user.watchlists}
+    state: {owned_stocks: state.user.owned_stocks, sold_stocks: state.user.sold_stocks, watchlists: state.user.watchlists},
+    user_id: state.user.id
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateStockInfoOnState: (stockLists) => dispatch(updateStockInfoOnState(stockLists))
+    updateStockInfoOnState: (stockLists) => dispatch(updateStockInfoOnState(stockLists)),
+    updateUserStocks: (userID) => dispatch(updateUserStocks(userID))
   }
 }
 

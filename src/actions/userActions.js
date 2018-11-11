@@ -18,4 +18,4 @@ export const addBalance = (stockCard) => {
     dispatch(addBalanceAction(newBalance))
   })
   }
-  }
+}

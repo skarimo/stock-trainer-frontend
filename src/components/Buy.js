@@ -22,13 +22,8 @@ class Buy extends Component {
       this.setState({ [e.target.name]: e.target.value })
     }
 
-    componentDidUpdate(prevProps) {
-      console.log(prevProps, this.props)
-    }
-
     submitShareBuy = (e) => {
       e.preventDefault()
-      console.log(this.state)
       if (this.state.shares_amount > 0 && this.state.share_price > 0 && (this.state.shares_amount * this.state.share_price < this.props.user.account_balance)) {
         this.props.buyStock(this.state)
         this.props.handleModalClose()
