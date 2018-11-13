@@ -4,7 +4,7 @@ const token = localStorage.getItem("token")
 
 export const addBalance = (stockCard) => {
   return (dispatch) => {
-    fetch(`http://localhost:3000/add_balance`, {
+    fetch(`https://stock-trainer-backend.herokuapp.com/add_balance`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
