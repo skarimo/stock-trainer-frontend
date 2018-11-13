@@ -4,7 +4,9 @@ const sellStockAction = (stock_card) => ({type: 'SELL_STOCK', payload: stock_car
 const addToWatchlistAction = (stock_card) => ({type: 'ADD_WATCHLIST', payload: stock_card})
 const removeFromWatchlistAction = (stock_card) => ({type: 'REMOVE_WATCHLIST', payload: stock_card})
 const updateUserStocksAction = (stockObj) => ({type: 'UPDATE_STOCKS', payload: stockObj})
-const cancelSaleAction = (soldStockID) => ({type: 'CANCEL_PURCHASE', payload: soldStockID})
+const updateOwnedSharesAction = (stockObj) => ({type: 'UPDATE_OWNED_SHARES', payload: stockObj})
+const cancelSaleAction = (soldStockID) => ({type: 'CANCEL_SALE', payload: soldStockID})
+const cancelPurchaseAction = (purchaseStockID) => ({type: 'CANCEL_PURCHASE', payload: purchaseStockID})
 // const updatePreviousDayStocks = (stockList) => ({type: 'PREVIOUS_DAY_STOCK_DATA', payload: stockList})
 
 const token = localStorage.getItem("token")
@@ -57,7 +59,7 @@ async function fetchAllStocksList(stocksToFetch) {
     })
     .then(r => r.json())
     .then((stockInfo) => {
-      let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
+      let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, status:{...stockInfo.status}}
       dispatch(buyStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance}))
     })
     }
@@ -77,12 +79,7 @@ async function fetchAllStocksList(stocksToFetch) {
     })
     .then(r => r.json())
     .then((stockInfo) => {
-      if (stockInfo.message) {
-        dispatch(sellStockAction({deleted: true, total_balance: stockInfo.new_balance, stockSymbol: stockCard.symbol}))
-      } else {
-      let stock_card = {...stockInfo.stock_card, stock:{...stockInfo.stock}, liveStockData:{quote:{...stockInfo.liveStockData}}}
-      dispatch(sellStockAction({stock_card: stock_card, total_balance: stockInfo.new_balance, sold_stock_card: stockInfo.sold_stock_card}))
-    }
+      dispatch(sellStockAction({new_stock_sale: stockInfo, old_stock_card: stockCard}))
     })
     }
   }
@@ -128,12 +125,13 @@ async function fetchAllStocksList(stocksToFetch) {
 
   export const updateUserStocks = (userID) => {
     return (dispatch) => {
+      const tokenx = localStorage.getItem("token")
       fetch(`http://localhost:3000/update_user_stocks/${userID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'Authorization': `${token}`
+        'Authorization': `${tokenx}`
       }
     })
     .then(r => r.json())
@@ -145,8 +143,8 @@ async function fetchAllStocksList(stocksToFetch) {
 
   export const cancelSale = (soldStockID) => {
     return (dispatch) => {
-      fetch(`http://localhost:3000/sold_stocks/${soldStockID}`, {
-      method: 'DELETE',
+      fetch(`http://localhost:3000/cancel_sale/${soldStockID}`, {
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
@@ -155,7 +153,44 @@ async function fetchAllStocksList(stocksToFetch) {
     })
     .then(r => r.json())
     .then(res => {
-      dispatch(cancelSaleAction({sold_stock_id: soldStockID}))
+      let stock_card = {...res.stock_card, status: {...res.status}, stock: {...res.stock}}
+      dispatch(cancelSaleAction({stock_card: stock_card, new_owned_shares: res.new_owned_shares}))
+    })
+    }
+  }
+
+  export const cancelPurchase = (purchaseStockID) => {
+    return (dispatch) => {
+      fetch(`http://localhost:3000/cancel_purchase/${purchaseStockID}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
+    .then(r => r.json())
+    .then(res => {
+      let stock_card = {...res.stock_card, status: {...res.status}, stock: {...res.stock}}
+      dispatch(cancelPurchaseAction({stock_card: stock_card, new_balance: res.new_balance}))
+    })
+    }
+  }
+
+  export const updateOwnedShares = (userID, owned_stock_shares) => {
+    const tokenx = localStorage.getItem("token")
+    return (dispatch) => {
+      fetch(`http://localhost:3000/update_owned/${userID}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${tokenx}`
+      }
+    })
+    .then(r => r.json())
+    .then(newStocksInfo => {
+        dispatch(updateOwnedSharesAction(newStocksInfo))
     })
     }
   }

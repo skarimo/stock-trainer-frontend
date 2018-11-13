@@ -22,25 +22,15 @@ class StockData extends Component {
     this.getData()
   }
 
-  showOwnedCard(owned_stock) {
-    let status = null
-    if (owned_stock.status_id === 2) {
-      status = "PENDING"
-    } else if (owned_stock.status_id === 1) {
-      status = "COMPLETED"
-    }
-
+  showOwnedCard(owned_stock_share) {
     return (
       <div className="ownedStockCard">
         <ul style={{listStyleType:'none'}}>
           <li style={{marginBottom: '1%'}}>
-            <h3><b style={{color:'lightgreen'}}>Owned Shares:</b> {owned_stock.owned_shares}</h3>
+            <h3><b style={{color:'lightgreen'}}>Owned Shares:</b> {owned_stock_share.owned_shares}</h3>
           </li>
           <li style={{marginBottom: '1%'}}>
-            <h3><b style={{color:'lightgreen'}}>Status:</b> {status ? status : owned_stock.status.name}</h3>
-          </li>
-          <li style={{marginBottom: '1%'}}>
-            <h3><b style={{color:'lightgreen'}}>Average buy price:</b> {owned_stock.buy_price}</h3>
+            <h3><b style={{color:'lightgreen'}}>Average buy price:</b> {owned_stock_share.avg_buy_price}</h3>
           </li>
         </ul>
       </div>
@@ -49,7 +39,7 @@ class StockData extends Component {
 
   render() {
     const stockData = this.state.stockData
-    const owned_stock = this.props.owned_stocks.filter(stock => stock.stock.symbol === stockData.symbol)[0]
+    const owned_stock_share = this.props.owned_stock_shares.filter(stock => stock.stock.symbol === stockData.symbol)[0]
 
     return (
       <div>
@@ -89,7 +79,7 @@ class StockData extends Component {
             </ul>
         </div>
         <div>
-          {owned_stock ? this.showOwnedCard(owned_stock) : null}
+          {owned_stock_share ? this.showOwnedCard(owned_stock_share) : null}
         </div>
       </div>
     )
@@ -98,7 +88,7 @@ class StockData extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    owned_stocks: state.user.owned_stocks
+    owned_stock_shares: state.user.owned_stock_shares
   }
 }
 

@@ -7,8 +7,8 @@ import Navbar from '../components/Navbar'
 // import TradePage from './TradePage'
 import StockShowPage from './StockShowPage'
 
-import { updateStockInfoOnState } from '../actions/stockActions'
-import { updateUserStocks } from '../actions/stockActions'
+import { updateStockInfoOnState, updateUserStocks, updateOwnedShares } from '../actions/stockActions'
+// import { updateUserStocks, updateOwnedShares } from '../actions/stockActions'
 
 class HomePage extends Component {
 
@@ -17,17 +17,18 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
+    this.props.updateUserStocks(this.props.user_id)
     this.props.updateStockInfoOnState(this.props.state)
-    // this.props.updateUserStocks(this.props.user_id)
 
     this.refreshInterval = setInterval(() => {
       // this.props.updateStockInfoOnState(this.props.state)
       this.props.updateUserStocks(this.props.user_id)
-    }, 10000, true);
+      this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
+    }, 20000);
   }
 
   componentWillUnmount() {
- //   clearInterval(this.refreshInterval)
+   clearInterval(this.refreshInterval)
  }
  // <div style={{width:'100%', paddingBottom: '5%'}}><Navbar /></div>
  // <div><StocksContainer /></div>
@@ -73,7 +74,7 @@ class HomePage extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    state: {owned_stocks: state.user.owned_stocks, sold_stocks: state.user.sold_stocks, watchlists: state.user.watchlists},
+    state: {owned_stock_shares: state.user.owned_stock_shares, watchlists: state.user.watchlists},
     user_id: state.user.id
   }
 }
@@ -81,6 +82,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateStockInfoOnState: (stockLists) => dispatch(updateStockInfoOnState(stockLists)),
+    updateOwnedShares: (userID, owned_stock_shares) => dispatch(updateOwnedShares(userID, owned_stock_shares)),
     updateUserStocks: (userID) => dispatch(updateUserStocks(userID))
   }
 }

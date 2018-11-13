@@ -5,16 +5,13 @@ import TradeModal from '../containers/TradePage'
 //
 // const history = createBrowserHistory();
 
-
-const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale }) => {
-
-  if(stock) {
+const PurchasedStockCard = ({ stock, history, addMessageToHomeScreen, cancelPurchase }) => {
     return (
-      <div className="soldStockCard" >
+      <div className="purchasedStockCard" >
         <div className="ownedStockSymbol" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column', paddingRight:'3%' }}>
           <h5 style={{color:'#A7F432'}}>{stock.stock.symbol}</h5>
-          <b>{statusShow(stock.status, stock.status_id)}</b>
-          {stock.status.name === "PENDING" ? <button className="ui inverted red button" onClick={() => cancelSale(stock.id)}>Cancel</button> : <button className="ui grey button" onClick={console.log}>Remove</button>}
+            <b>{statusShow(stock.status, stock.status_id)}</b>
+            {stock.status.name === "PENDING" ? <button className="ui inverted red button" onClick={() => cancelPurchase(stock.id)}>Cancel</button> : <button className="ui grey button" onClick={console.log}>Remove</button>}
         </div>
         <div className="stockCardDetail" style={{textAlign: 'left'}} onClick={() => history.push(`/stock/${stock.stock.id}`, stock)}>
           <div>
@@ -22,12 +19,12 @@ const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale }) =
             <div>
               <div className="stockSharesDetail">
                 <div>
-                  <p>Sale Price: ${parseFloat(stock.sale_price)}</p>
-                  <p>Date Created: {new Date(stock.created_at).toLocaleString()}</p>
+                  <p>Buy Price: ${stock.buy_price}</p>
+                  <p>Purchase Date: {new Date(stock.created_at).toLocaleString()}</p>
                 </div>
                 <div style={{paddingLeft:'10px'}}>
-                  <p>Sold Shares: {stock.sold_shares}</p>
-                  <p>Pending Sale Shares: {stock.pending_sale_shares}</p>
+                  <p>Shares Purchased: {stock.owned_shares}</p>
+                  <p>Pending Shares: {stock.pending_buy_shares}</p>
                 </div>
               </div>
             </div>
@@ -35,21 +32,17 @@ const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale }) =
         </div>
       </div>
     )
-  } else {
-    return (<React.Fragment>Loading</React.Fragment>)
-  }
 }
 
 function statusShow(status, status_id) {
-  if (status.name === "PENDING" || status_id === 2) {
-    return null
-  } else if (status.name === "CANCELED" || status_id === 3) {
+  if (status.name === "PENDING" || status_id === "2") {
+    return <b style={{color: 'yellow'}}>PENDING</b>
+  } else if (status.name === "CANCELED" || status_id === "3") {
     return <b style={{color: 'red'}}>CANCELED</b>
-  } else if (status.name === "COMPLETED" || status_id === 1) {
+  } else if (status.name === "COMPLETED" || status_id === "1") {
     return <b style={{color: 'green'}}>COMPLETED</b>
   }
 }
 
 
-
-export default SoldStockCard
+export default PurchasedStockCard

@@ -24,10 +24,10 @@ class Buy extends Component {
 
     submitShareBuy = (e) => {
       e.preventDefault()
-      if (this.state.shares_amount > 0 && this.state.share_price > 0 && (this.state.shares_amount * this.state.share_price < this.props.user.account_balance)) {
+      if (this.state.shares_amount > 0 && this.state.share_price > 0 && (this.state.shares_amount * this.state.share_price <= this.props.user.account_balance)) {
         this.props.buyStock(this.state)
         this.props.handleModalClose()
-        this.props.addMessageToHomeScreen(`${this.state.shares_amount} shares of ${this.state.symbol} bought successfully`)
+        this.props.addMessageToHomeScreen(`${this.state.shares_amount} shares of ${this.state.symbol} pending purchase`)
       } else {
         this.props.addMessageToModal("Invalid Amount. Try again.")
       }
@@ -52,7 +52,7 @@ class Buy extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    stockList: {owned_stocks: state.user.owned_stocks},
+    stockList: {purchased_stocks: state.user.purchased_stocks},
     user: state.user,
   }
 }

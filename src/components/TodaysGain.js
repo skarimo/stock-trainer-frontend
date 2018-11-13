@@ -26,7 +26,7 @@ class TodaysGain extends Component {
   yesterdaysPercentage = () => {
     let previousDaytotal = parseFloat(this.props.total_balance)
     let currentDayTotal = parseFloat(this.props.total_balance)
-    this.props.stockList.owned_stocks.forEach((stock) => {
+    this.props.stockList.owned_stock_shares.forEach((stock) => {
       previousDaytotal += (stock.owned_shares*parseFloat(stock.liveStockData.quote.previousClose))
       currentDayTotal += (stock.owned_shares*parseFloat(stock.liveStockData.quote.latestPrice))
     })
@@ -36,7 +36,7 @@ class TodaysGain extends Component {
   yesterdaysDollarAmount = () => {
     let previousDaytotal = parseFloat(this.props.total_balance)
     let currentDayTotal = parseFloat(this.props.total_balance)
-    this.props.stockList.owned_stocks.forEach((stock) => {
+    this.props.stockList.owned_stock_shares.forEach((stock) => {
       previousDaytotal += (stock.owned_shares*parseFloat(stock.liveStockData.quote.previousClose))
       currentDayTotal += (stock.owned_shares*parseFloat(stock.liveStockData.quote.latestPrice))
     })
@@ -47,8 +47,8 @@ class TodaysGain extends Component {
   render() {
         let percentChange;
         let dollarChange;
-        if (this.props.stockList.owned_stocks != false) {
-          if (this.props.stockList.owned_stocks[0].liveStockData) {
+        if (this.props.stockList.owned_stock_shares != false && this.props.stockList.owned_stock_shares != undefined) {
+          if (this.props.stockList.owned_stock_shares[0].liveStockData) {
              percentChange = parseFloat(this.yesterdaysPercentage().toFixed(2))
              dollarChange = parseFloat(this.yesterdaysDollarAmount().toFixed(2))
           } else {
@@ -78,7 +78,7 @@ class TodaysGain extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    stockList: {owned_stocks: state.user.owned_stocks, sold_stocks: state.user.sold_stocks, watchlists: state.user.watchlists},
+    stockList: {owned_stock_shares: state.user.owned_stock_shares},
     total_balance: state.user.account_balance
   }
 }

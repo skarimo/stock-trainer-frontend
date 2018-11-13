@@ -17,6 +17,8 @@ code {
 
 
 .stockContainer {
+  /* padding: 5%; */
+  /* margin: 1%; */
   padding-top: 1%;
   display: flex;
   flex-direction: row;
@@ -43,11 +45,28 @@ code {
   margin: 1%;
   padding: 5px;
   background-color: rgb(67,67,67);
-  color: white;
+  color: lightblue;
+}
+
+.purchasedStockCard, .soldStockCard {
+  display: flex;
+  /* height: 90px; */
+  border-color: green;
+  white-space: wrap;
+  overflow: hidden;
+  margin-right: 70px;
+  /* border-style: solid; */
+  /* border-radius: 10px; */
+  box-shadow: 0 0 10px #000000;
+  border-width: 0.5px;
+  margin: 1%;
+  padding: 5px;
+  background-color: rgb(47,47,47);
+  color: lightblue;
 }
 
 .watchlistStockCard {
-  max-width: 500px;
+  max-width: 600px;
 }
 
 .ownedStockCard {
@@ -133,7 +152,7 @@ for font-size and font-family*/
   margin: 1%;
   padding: 5px;
   background-color: rgb(67,67,67);
-  color: white;
+  color: lightblue;
 }
 
 .newsCard h3 {

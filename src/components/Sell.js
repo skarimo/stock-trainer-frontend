@@ -18,23 +18,23 @@ class Sell extends Component {
       this.setState({ [e.target.name]: e.target.value })
     }
 
-    submitShareSell = (e, ownedStock) => {
+    submitShareSell = (e, ownedStockShare) => {
       e.preventDefault()
-      if (ownedStock.owned_shares >= this.state.shares_amount && this.state.shares_amount > 0 && this.state.share_price > 0) {
+      if (ownedStockShare.owned_shares >= this.state.shares_amount && this.state.shares_amount > 0 && this.state.share_price > 0) {
         this.props.sellStock(this.state)
         this.props.handleModalClose()
-        this.props.addMessageToHomeScreen(`${this.state.shares_amount} shares of ${this.state.symbol} sold successfully`)
+        this.props.addMessageToHomeScreen(`${this.state.shares_amount} shares of ${this.state.symbol} pending sale`)
       } else {
         this.props.addMessageToModal("Invalid Amount. Try again.")
       }
     }
 
     showForm = () => {
-      let ownedStocks = null
+      let ownedStockShares = null
       let ownedCurrentStockCard = null
-      ownedStocks = this.props.stockList.owned_stocks
-      if (ownedStocks) {
-         ownedCurrentStockCard = ownedStocks.filter(stock => stock.stock.symbol === this.props.stock.symbol)[0]
+      ownedStockShares = this.props.stockList.owned_stock_shares
+      if (ownedStockShares) {
+         ownedCurrentStockCard = ownedStockShares.filter(stock => stock.stock.symbol === this.props.stock.symbol)[0]
       }
       if (ownedCurrentStockCard) {
         return (
@@ -65,7 +65,7 @@ class Sell extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    stockList: {owned_stocks: state.user.owned_stocks},
+    stockList: {owned_stock_shares: state.user.owned_stock_shares},
     user: state.user,
   }
 }

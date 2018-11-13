@@ -34,7 +34,9 @@ class Navbar extends Component {
       body: JSON.stringify({'search_term': this.state.searchTerm})
       })
       .then(r => r.json())
-      .then(searchResults => { this.setState({ searchResults: searchResults, isLoading: false })})
+      .then(searchResults => {
+        console.log(searchResults)
+        this.setState({ searchResults: searchResults, isLoading: false })})
   }
 
   handleSearchTermChange = (e, { value }) => {
