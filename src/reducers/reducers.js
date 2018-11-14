@@ -10,14 +10,16 @@ const initialState = {
    watchlists: {},
    owned_stock_shares: {},
   },
+  loading: false,
   will: "be needed later"
-
 }
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case "SET_USER_DATA":
-      return {user:{...action.payload}}
+      return {user:{...action.payload}, loading: false}
+    case "LOADING_CHANGE":
+      return {...state, loading: action.payload}
     case "REFRESH_STOCK_DATA":
       return {...state, user:{...state.user, ...action.payload}}
     case "ADD_BALANCE":

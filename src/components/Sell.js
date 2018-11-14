@@ -36,7 +36,7 @@ class Sell extends Component {
       if (ownedStockShares) {
          ownedCurrentStockCard = ownedStockShares.filter(stock => stock.stock.symbol === this.props.stock.symbol)[0]
       }
-      if (ownedCurrentStockCard) {
+      if (ownedCurrentStockCard && ownedCurrentStockCard.owned_shares > 0) {
         return (
           <form onSubmit={(e) => this.submitShareSell(e, ownedCurrentStockCard)} className="ui form" style={{color: 'black'}}>
             <h2>Current Price per share: ${ownedCurrentStockCard.liveStockData.quote.latestPrice}</h2>

@@ -33,6 +33,7 @@ export const login = (loginObj) => {
           localStorage.setItem("token", resObj.access_token)
           dispatch(setUserData({...resObj.user}))
         } else {
+          dispatch(({type: 'LOADING_CHANGE', payload: false}))
           alert('Invalid username and password')
         }
       })

@@ -7,6 +7,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 import { connect } from 'react-redux'
 import { login, authorizeToken } from '../actions/authorizeActions'
+import { changeLoading } from '../actions/loadingActions'
 
 
 class Login extends Component {
@@ -29,6 +30,7 @@ class Login extends Component {
   handleLoginSubmit = (e) => {
     e.preventDefault()
     // this.setState({ loading: true})
+    this.props.changeLoading(true)
     this.props.login(this.state)
   }
 
@@ -36,7 +38,7 @@ class Login extends Component {
     if (this.props.user.id != null) {
       return (<HomePage />)
     } else {
-      if (this.state.loading) {
+      if (this.props.loading) {
         return (
         <div class="loader"></div>
       )
@@ -66,14 +68,16 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    loading: state.loading
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     login: (loginObj) => dispatch(login(loginObj)),
-    authorizeToken: (token) => dispatch(authorizeToken(token))
+    authorizeToken: (token) => dispatch(authorizeToken(token)),
+    changeLoading: (status) => dispatch(changeLoading(status))
   }
 }
 

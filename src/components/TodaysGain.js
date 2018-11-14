@@ -30,6 +30,10 @@ class TodaysGain extends Component {
       previousDaytotal += (stock.owned_shares*parseFloat(stock.liveStockData.quote.previousClose))
       currentDayTotal += (stock.owned_shares*parseFloat(stock.liveStockData.quote.latestPrice))
     })
+    let percentChange = ((currentDayTotal-previousDaytotal)/previousDaytotal*100)
+      if (isNaN(percentChange)) {
+        return 0
+      }
     return ((currentDayTotal-previousDaytotal)/previousDaytotal*100)
   }
 
@@ -52,14 +56,16 @@ class TodaysGain extends Component {
              percentChange = parseFloat(this.yesterdaysPercentage().toFixed(2))
              dollarChange = parseFloat(this.yesterdaysDollarAmount().toFixed(2))
           } else {
-             percentChange = "Loading"
-             dollarChange = "Loading"
+             percentChange = 0
+             dollarChange = 0
           }
       } else {
         percentChange = 0
         dollarChange = 0
       }
+    
       return (
+
         <React.Fragment>
           <div className="circleHolder">
             <h3>Account Balance: <b style={{color: 'Lime', paddingRight:'1%'}}>${this.props.total_balance}</b><AddBalance /></h3>
