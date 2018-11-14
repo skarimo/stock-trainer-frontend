@@ -74,7 +74,7 @@ class StockShowPage extends Component {
 		if (this.state.stockIntraday != null && this.state.stockIntraday.length) {
 			return (
       <div className="stockContainer" style={{marginBottom: '5%'}}>
-        <h1 style={{width: '100%', textAlign: 'center'}}>{this.symbol()} <TradeModal addMessageToHomeScreen={this.props.addMessageToHomeScreen} stock={{...stock}} liveData={this.state.stockLiveData}/> {checkWatchlist.length > 0 ? <button onClick={this.removeFromWatchlist} className="ui red inverted button">Remove from Watchlist</button> : <button onClick={this.addToWatchlist} className="ui yellow inverted button">Add To Watchlist</button>} </h1>
+        <h1 style={{width: '100%', textAlign: 'center'}}>{this.symbol()} <b style={{color: 'MediumSpringGreen'}}> ${this.state.stockLiveData.latestPrice}</b> <TradeModal addMessageToHomeScreen={this.props.addMessageToHomeScreen} stock={{...stock}} liveData={this.state.stockLiveData}/> {checkWatchlist.length > 0 ? <button onClick={this.removeFromWatchlist} className="ui red inverted button">Remove from Watchlist</button> : <button onClick={this.addToWatchlist} className="ui yellow inverted button">Add To Watchlist</button>} </h1>
         <div style={{backgroundColor:'lightgreen', marginRight:'5%'}}>
           <h3>Daily Gain Chart</h3>
           <Chart type={'hybrid'} data={this.state.stockIntraday} />

@@ -45,7 +45,6 @@ export default function reducer(state = initialState, action) {
     case "REMOVE_WATCHLIST":
       newWatchlist = state.user.watchlists.filter(stock => stock.stock.symbol !== action.payload.stock_symbol)
       return {...state, user: {...state.user, watchlists:[...newWatchlist]}}
-    case "UPDATE_STOCKS":
     case "REMOVE_SOLD_STOCK":
       let newSoldStocks = state.user.sold_stocks.filter(stock => stock.id !== action.payload.id)
       return {...state, user: {...state.user, sold_stocks:[...newSoldStocks]}}

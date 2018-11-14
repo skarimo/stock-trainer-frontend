@@ -40,7 +40,7 @@ class Login extends Component {
     } else {
       if (this.props.loading) {
         return (
-        <div class="loader"></div>
+        <div className="loader"></div>
       )
       } else {
         return (

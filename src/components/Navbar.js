@@ -35,7 +35,6 @@ class Navbar extends Component {
       })
       .then(r => r.json())
       .then(searchResults => {
-        console.log(searchResults)
         this.setState({ searchResults: searchResults, isLoading: false })})
   }
 
