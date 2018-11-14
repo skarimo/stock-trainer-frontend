@@ -13,7 +13,7 @@ class OwnedStockSharesContainer extends Component {
 
   mainRender = (ownedStockShareCardList) => {
     return (
-      <div style={{overflowY: 'scroll', maxHeight:'600px', width: '700px'}}>
+      <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'scroll', maxHeight:'600px', width: '700px'}}>
         <h1>Owned Stocks:</h1>
         {ownedStockShareCardList}
       </div>

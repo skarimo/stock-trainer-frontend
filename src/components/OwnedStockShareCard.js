@@ -8,7 +8,7 @@ import TradeModal from '../containers/TradePage'
 const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen }) => {
   if(stock.liveStockData) {
     return (
-      <div className="ownedStockCard" >
+      <div className="ownedStockCard" style={{width: '700px'}}>
         <div className="ownedStockSymbol" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column', paddingRight:'3%' }}>
           <h1 style={{color:'#A7F432'}}>{stock.stock.symbol}</h1>
           <TradeModal addMessageToHomeScreen={addMessageToHomeScreen} stock={stock.stock} liveData={stock.liveStockData.quote}/>

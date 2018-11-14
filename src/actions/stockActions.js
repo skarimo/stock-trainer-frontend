@@ -80,7 +80,10 @@ async function fetchAllStocksList(stocksToFetch) {
     })
     .then(r => r.json())
     .then((stockInfo) => {
-      dispatch(sellStockAction({new_stock_sale: stockInfo, old_stock_card: stockCard}))
+      if (stockInfo) {
+        console.log(stockInfo)
+        dispatch(sellStockAction({new_stock_sale: stockInfo, old_stock_card: stockCard}))
+      }
     })
     }
   }
