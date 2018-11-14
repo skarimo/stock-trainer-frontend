@@ -19,12 +19,12 @@ const PurchasedStockCard = ({ stock, history, addMessageToHomeScreen, cancelPurc
             <div>
               <div className="stockSharesDetail">
                 <div>
-                  <p>Buy Price: ${stock.buy_price}</p>
-                  <p>Purchase Date: {new Date(stock.created_at).toLocaleString()}</p>
+                  <p>Buy Price: <b style={{color:'white'}}>${stock.buy_price}</b></p>
+                  <p>Purchase Date: <b style={{color:'white'}}>{new Date(stock.created_at).toLocaleString()}</b></p>
                 </div>
                 <div style={{paddingLeft:'10px'}}>
-                  <p>Shares Purchased: {stock.owned_shares}</p>
-                  <p>Pending Shares: {stock.pending_buy_shares}</p>
+                  <p>Shares Purchased: <b style={{color:'white'}}>{stock.owned_shares}</b></p>
+                  <p>Pending Shares: <b style={{color:'white'}}>{stock.pending_buy_shares}</b></p>
                 </div>
               </div>
             </div>

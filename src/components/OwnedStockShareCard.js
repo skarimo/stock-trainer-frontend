@@ -6,7 +6,6 @@ import TradeModal from '../containers/TradePage'
 // const history = createBrowserHistory();
 
 const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen }) => {
-  console.log(stock)
   if(stock.liveStockData) {
     return (
       <div className="ownedStockCard" >
@@ -20,12 +19,12 @@ const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen }) => {
             <div>
               <div className="stockSharesDetail">
                 <div>
-                  <h5>Average Buy Price: ${stock.avg_buy_price}</h5>
-                  <h5>Owned Shares: {stock.owned_shares}</h5>
+                  <h5>Average Buy Price: <b style={{color:'white'}}>${stock.avg_buy_price}</b></h5>
+                  <h5>Owned Shares: <b style={{color:'white'}}>{stock.owned_shares}</b></h5>
                 </div>
                 <div style={{paddingLeft:'10px'}}>
-                  <h5>Current Price: {stock.liveStockData.quote.latestPrice}</h5>
-                  <h5>Latest Volume: {stock.liveStockData.quote.latestVolume}</h5>
+                  <h5>Current Price: <b style={{color:'white'}}>{stock.liveStockData.quote.latestPrice}</b></h5>
+                  <h5>Latest Volume: <b style={{color:'white'}}>{stock.liveStockData.quote.latestVolume}</b></h5>
                 </div>
               </div>
             </div>

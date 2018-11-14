@@ -9,6 +9,10 @@ import SoldStockCard from '../components/SoldStockCard'
 import TodaysGain from '../components/TodaysGain'
 import NewsSection from '../components/NewsSection'
 
+import OwnedStockSharesContainer from './OwnedStockSharesContainer'
+import HistoryContainer from './HistoryContainer'
+import WatchlistContainer from './WatchlistContainer'
+
 import { buyStock, sellStock, removeFromWatchlist, cancelSale, cancelPurchase } from '../actions/stockActions'
 
 
@@ -24,24 +28,6 @@ class StocksContainer extends Component {
   }
 
   render() {
-    let purchasedStockCardList = "You have no Purchased Stocks"
-    let ownedStockShareCardList = "You have no Purchased Stocks"
-    let watchlistStockCardList = "You have no Stocks on your Watchlist"
-    let soldStockCardList = "You have no Stocks pending sale"
-
-    const { purchased_stocks, watchlists, sold_stocks, owned_stock_shares } = this.props.stockList
-    if (purchased_stocks) {
-      purchasedStockCardList = purchased_stocks.map(stock => <PurchasedStockCard cancelPurchase={this.props.cancelPurchase} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
-    }
-    if (watchlists) {
-      watchlistStockCardList = watchlists.map(stock => <WatchlistStockCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} removeFromWatchlist={this.removeFromWatchlist} key={stock.id} stock={stock} />)
-    }
-    if (sold_stocks) {
-      soldStockCardList = sold_stocks.map(stock => <SoldStockCard cancelSale={this.props.cancelSale} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
-    }
-    if (owned_stock_shares) {
-      ownedStockShareCardList = owned_stock_shares.map(stock => <OwnedStockShareCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
-    }
 
     return (
       <div className="stockContainer" style={{textAlign: 'center'}}>
@@ -50,24 +36,13 @@ class StocksContainer extends Component {
             {/* <h1>Sector Performance</h1>
             <SectionBalanceGraph /> */}
         </div>
-        <div style={{overflowY: 'scroll', maxHeight:'600px', width: '700px'}}>
-          {ownedStockShareCardList.length > 0 ? <h1>Owned Stocks:</h1> : null}
-          {ownedStockShareCardList}
-        </div>
-          <div style={{display: 'flex', maxHeight: '700px', flexDirection: 'column', width: '500px'}}>
-            {purchasedStockCardList.length > 0 ? <h3>Purchase History:</h3> : null}
-            <div style={{overflowY: 'scroll', maxHeight:'300px'}}>
-              {purchasedStockCardList}
-            </div>
-            {soldStockCardList.length > 0 ? <h3>Sale History:</h3> : null}
-            <div style={{overflowY: 'scroll', maxHeight:'300px'}}>
-              {soldStockCardList}
-            </div>
-          </div>
-        <div style={{overflowY: 'scroll'}}>
-          {watchlistStockCardList.length > 0 ? <h1>Watchlisted Stocks:</h1> : null}
-          {watchlistStockCardList}
-        </div>
+
+        <OwnedStockSharesContainer addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />
+
+        <HistoryContainer cancelSale={this.props.cancelSale} cancelPurchase={this.props.cancelPurchase} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />
+
+        <WatchlistContainer addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} removeFromWatchlist={this.removeFromWatchlist} />
+
         <div style={{/*overflowY: 'scroll', maxHeight:'600px'*/}}>
           <h1>News Section</h1>
           <NewsSection />

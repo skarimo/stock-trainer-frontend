@@ -22,12 +22,12 @@ const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale }) =
             <div>
               <div className="stockSharesDetail">
                 <div>
-                  <p>Sale Price: ${parseFloat(stock.sale_price)}</p>
-                  <p>Date Created: {new Date(stock.created_at).toLocaleString()}</p>
+                  <p>Sale Price: <b style={{color:'white'}}>${parseFloat(stock.sale_price)}</b></p>
+                  <p>Date Created: <b style={{color:'white'}}>{new Date(stock.created_at).toLocaleString()}</b></p>
                 </div>
                 <div style={{paddingLeft:'10px'}}>
-                  <p>Sold Shares: {stock.sold_shares}</p>
-                  <p>Pending Sale Shares: {stock.pending_sale_shares}</p>
+                  <p>Sold Shares: <b style={{color:'white'}}>{stock.sold_shares}</b></p>
+                  <p>Pending Sale Shares: <b style={{color:'white'}}>{stock.pending_sale_shares}</b></p>
                 </div>
               </div>
             </div>
