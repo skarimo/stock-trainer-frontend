@@ -51,7 +51,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const buyStock = (stockCard) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/buy_stock`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/buy_stock`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const sellStock = (stockCard) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/sell_stock`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/sell_stock`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -93,7 +93,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const addToWatchlist = (load) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/add_watchlist`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/add_watchlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const removeFromWatchlist = (load) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/remove_watchlist`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/remove_watchlist`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const updateUserStocks = (userID) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/update_user_stocks/${userID}`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/update_user_stocks/${userID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -152,7 +152,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const cancelSale = (soldStockID) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/cancel_sale/${soldStockID}`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/cancel_sale/${soldStockID}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -171,7 +171,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const cancelPurchase = (purchaseStockID) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/cancel_purchase/${purchaseStockID}`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/cancel_purchase/${purchaseStockID}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -190,7 +190,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const updateOwnedShares = (userID, owned_stock_shares) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/update_owned/${userID}`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/update_owned/${userID}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -208,7 +208,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const removeSoldStock = (id) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/sold_stocks/${id}`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/sold_stocks/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -226,7 +226,7 @@ async function fetchAllStocksList(stocksToFetch) {
   export const removePurchasedStock = (id) => {
     const token = localStorage.getItem("token")
     return (dispatch) => {
-      fetch(`http://localhost:3000/purchased_stocks/${id}`, {
+      fetch(`https://stock-trainer-backend.herokuapp.com/purchased_stocks/${id}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
