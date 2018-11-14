@@ -24,7 +24,7 @@ class HomePage extends Component {
       // this.props.updateStockInfoOnState(this.props.state)
       this.props.updateUserStocks(this.props.user_id)
       this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
-    }, 8000);
+    }, 5000);
   }
 
   componentWillUnmount() {
