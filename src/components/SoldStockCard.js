@@ -6,7 +6,7 @@ import TradeModal from '../containers/TradePage'
 // const history = createBrowserHistory();
 
 
-const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale }) => {
+const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale, removeSoldStock }) => {
 
   if(stock) {
     return (
@@ -14,7 +14,7 @@ const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale }) =
         <div className="ownedStockSymbol" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column', paddingRight:'3%' }}>
           <h5 style={{color:'#A7F432'}}>{stock.stock.symbol}</h5>
           <b>{statusShow(stock.status, stock.status_id)}</b>
-          {stock.status.name === "PENDING" ? <button className="ui inverted red button" onClick={() => cancelSale(stock.id)}>Cancel</button> : <button className="ui grey button" onClick={console.log}>Remove</button>}
+          {stock.status.name === "PENDING" ? <button className="ui inverted red button" onClick={() => cancelSale(stock.id)}>Cancel</button> : <button className="ui grey button" onClick={() => {removeSoldStock(stock.id)}}>Remove</button>}
         </div>
         <div className="stockCardDetail" style={{textAlign: 'left'}} onClick={() => history.push(`/stock/${stock.stock.id}`, stock)}>
           <div>

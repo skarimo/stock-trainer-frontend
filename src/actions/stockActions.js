@@ -7,6 +7,9 @@ const updateUserStocksAction = (stockObj) => ({type: 'UPDATE_STOCKS', payload: s
 const updateOwnedSharesAction = (stockObj) => ({type: 'UPDATE_OWNED_SHARES', payload: stockObj})
 const cancelSaleAction = (soldStockID) => ({type: 'CANCEL_SALE', payload: soldStockID})
 const cancelPurchaseAction = (purchaseStockID) => ({type: 'CANCEL_PURCHASE', payload: purchaseStockID})
+
+const removeSoldStockAction = (id) => ({type: 'REMOVE_SOLD_STOCK', payload: id})
+const removePurchasedStockAction = (id) => ({type: 'REMOVE_PURCHASED_STOCK', payload: id})
 // const updatePreviousDayStocks = (stockList) => ({type: 'PREVIOUS_DAY_STOCK_DATA', payload: stockList})
 
 
@@ -81,7 +84,6 @@ async function fetchAllStocksList(stocksToFetch) {
     .then(r => r.json())
     .then((stockInfo) => {
       if (stockInfo) {
-        console.log(stockInfo)
         dispatch(sellStockAction({new_stock_sale: stockInfo, old_stock_card: stockCard}))
       }
     })
@@ -199,6 +201,42 @@ async function fetchAllStocksList(stocksToFetch) {
     .then(r => r.json())
     .then(newStocksInfo => {
         dispatch(updateOwnedSharesAction(newStocksInfo))
+    })
+    }
+  }
+
+  export const removeSoldStock = (id) => {
+    const token = localStorage.getItem("token")
+    return (dispatch) => {
+      fetch(`http://localhost:3000/sold_stocks/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
+    .then(r => r.json())
+    .then((res) => {
+      dispatch(removeSoldStockAction({id: id}))
+    })
+    }
+  }
+
+  export const removePurchasedStock = (id) => {
+    const token = localStorage.getItem("token")
+    return (dispatch) => {
+      fetch(`http://localhost:3000/purchased_stocks/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `${token}`
+      }
+    })
+    .then(r => r.json())
+    .then((res) => {
+      dispatch(removePurchasedStockAction({id: id}))
     })
     }
   }

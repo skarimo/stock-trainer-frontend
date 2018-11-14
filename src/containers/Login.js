@@ -13,7 +13,8 @@ class Login extends Component {
 
   state = {
     username: null,
-    password: null
+    password: null,
+    loading: false
   }
 
   componentDidMount() {
@@ -27,6 +28,7 @@ class Login extends Component {
 
   handleLoginSubmit = (e) => {
     e.preventDefault()
+    // this.setState({ loading: true})
     this.props.login(this.state)
   }
 
@@ -34,7 +36,15 @@ class Login extends Component {
     if (this.props.user.id != null) {
       return (<HomePage />)
     } else {
-      return (<LoginForm handleLoginSubmit={this.handleLoginSubmit} handleLoginFormChange={this.handleLoginFormChange} />)
+      if (this.state.loading) {
+        return (
+        <div class="loader"></div>
+      )
+      } else {
+        return (
+          <LoginForm handleLoginSubmit={this.handleLoginSubmit} handleLoginFormChange={this.handleLoginFormChange} />
+        )
+      }
     }
   }
 

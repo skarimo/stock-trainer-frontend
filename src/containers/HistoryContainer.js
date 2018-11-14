@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import SoldStockCard from '../components/SoldStockCard'
 import PurchasedStockCard from '../components/PurchasedStockCard'
 
+import { removePurchasedStock, removeSoldStock} from '../actions/stockActions'
 
 class HistoryContainer extends Component {
   constructor() {
@@ -16,10 +17,10 @@ class HistoryContainer extends Component {
     let purchasedStockCardList;
     let soldStockCardList;
       if (this.props.purchased_stocks) {
-        purchasedStockCardList = this.props.purchased_stocks.map(stock => <PurchasedStockCard cancelPurchase={this.props.cancelPurchase} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
+        purchasedStockCardList = this.props.purchased_stocks.map(stock => <PurchasedStockCard cancelPurchase={this.props.cancelPurchase} removePurchasedStock={this.props.removePurchasedStock} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
       }
       if (this.props.sold_stocks) {
-        soldStockCardList = this.props.sold_stocks.map(stock => <SoldStockCard cancelSale={this.props.cancelSale} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
+        soldStockCardList = this.props.sold_stocks.map(stock => <SoldStockCard removeSoldStock={this.props.removeSoldStock} cancelSale={this.props.cancelSale} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
       }
 
     if (soldStockCardList != false || purchasedStockCardList != false) {
@@ -59,4 +60,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(HistoryContainer)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    removePurchasedStock: (id) => dispatch(removePurchasedStock(id)),
+    removeSoldStock: (id) => dispatch(removeSoldStock(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryContainer)

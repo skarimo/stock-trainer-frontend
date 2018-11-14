@@ -5,13 +5,13 @@ import TradeModal from '../containers/TradePage'
 //
 // const history = createBrowserHistory();
 
-const PurchasedStockCard = ({ stock, history, addMessageToHomeScreen, cancelPurchase }) => {
+const PurchasedStockCard = ({ stock, history, addMessageToHomeScreen, cancelPurchase, removePurchasedStock }) => {
     return (
       <div className="purchasedStockCard" >
         <div className="ownedStockSymbol" style={{display: 'flex', flexWrap: 'wrap', flexDirection: 'column', paddingRight:'3%' }}>
           <h5 style={{color:'#A7F432'}}>{stock.stock.symbol}</h5>
             <b>{statusShow(stock.status, stock.status_id)}</b>
-            {stock.status.name === "PENDING" ? <button className="ui inverted red button" onClick={() => cancelPurchase(stock.id)}>Cancel</button> : <button className="ui grey button" onClick={console.log}>Remove</button>}
+            {stock.status.name === "PENDING" ? <button className="ui inverted red button" onClick={() => cancelPurchase(stock.id)}>Cancel</button> : <button className="ui grey button" onClick={() => {removePurchasedStock(stock.id)}}>Remove</button>}
         </div>
         <div className="stockCardDetail" style={{textAlign: 'left'}} onClick={() => history.push(`/stock/${stock.stock.id}`, stock)}>
           <div>
