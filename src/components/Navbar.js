@@ -13,8 +13,19 @@ class Navbar extends Component {
     this.state = {
       searchTerm: "",
       searchResults: [],
-      isLoading: false
+      isLoading: false,
+      sectorPerformance: [],
     }
+  }
+
+  componentDidMount() {
+    fetch(`https://api.iextrading.com/1.0/stock/market/sector-performance`).then(res => res.json())
+    .then(resList => {
+      let data = resList.map((result) => {
+          return {[result.name]: result.performance}
+        })
+        this.setState({ sectorPerformance: data })
+    })
   }
 
   handleOnLogoutClick = (e) => {
@@ -52,17 +63,30 @@ class Navbar extends Component {
       return {"title": res.symbol, "description": res.name, "value": res}
     })
 
+    let sectorPerformanceTextList;
+
+    if (this.state.sectorPerformance) {
+      sectorPerformanceTextList = this.state.sectorPerformance.map((sector) => {
+        return (<React.Fragment><font style={{fontSize: '17px', color: 'white'}}>{Object.keys(sector)[0]}: </font><font style={{fontSize: '18px', color: (parseFloat(Object.values(sector)[0]) > 0) ? 'LightGreen' : 'red'}}>{Object.values(sector)[0]}</font> — </React.Fragment>)
+      })
+    }
+
+
     return (
-      <div className="navbar" style={{margin: "1%"}}>
-        <div className="ui search">
-          <button onClick={() => this.props.history.push(`/`)} className="ui green button">HOME</button>
-          <div className="ui icon input">
-            <Search loading={this.state.isLoading} onSearchChange={_.debounce(this.handleSearchTermChange, 500)} onResultSelect={this.handleResultSelect} placeholder="Search stock..." showNoResults={true} results={results} />
-            <i className="search icon"></i>
+      <div>
+        <div className="navbar" style={{margin: "1%"}}>
+          <div className="ui search">
+            <button onClick={() => this.props.history.push(`/`)} className="ui green button">HOME</button>
+            <div className="ui icon input">
+              <Search loading={this.state.isLoading} onSearchChange={_.debounce(this.handleSearchTermChange, 500)} onResultSelect={this.handleResultSelect} placeholder="Search stock..." showNoResults={true} results={results} />
+              <i className="search icon"></i>
+            </div>
+            <button style={{float:'right'}} className="ui red button" onClick={this.handleOnLogoutClick}>Logout</button>
           </div>
-          <button style={{float:'right'}} className="ui red button" onClick={this.handleOnLogoutClick}>Logout</button>
-        </div>
+      </div>
+        <marquee style={{ backgroundColor:'rgb(59,59,59)', behavior:"scroll"}}>{sectorPerformanceTextList}</marquee>
     </div>
+
     )
   }
 }
