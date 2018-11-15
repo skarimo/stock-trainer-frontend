@@ -24,6 +24,8 @@ class AddBalance extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
+    this.props.addMessageToHomeScreen(`Successfully deposited $${this.state.deposit_amount}`)
+    this.handleModalClose()
     this.props.addBalance({deposit_amount: this.state.deposit_amount, user_id: this.props.user_id})
   }
 

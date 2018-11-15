@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Search } from 'semantic-ui-react'
 import { withRouter } from 'react-router-dom'
 
-// import { createBrowserHistory } from 'history'
-// const history = createBrowserHistory()
-
 const _ = require('lodash')
 
 class Navbar extends Component {

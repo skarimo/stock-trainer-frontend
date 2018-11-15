@@ -1,9 +1,5 @@
 import React from 'react'
 import TradeModal from '../containers/TradePage'
-// import { connect } from 'react-redux'
-// import { createBrowserHistory } from "history";
-//
-// const history = createBrowserHistory();
 
 const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen }) => {
   if(stock.liveStockData) {

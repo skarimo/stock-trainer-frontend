@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import PurchasedStockCard from '../components/PurchasedStockCard'
-import WatchlistStockCard from '../components/WatchlistStockCard'
-import OwnedStockShareCard from '../components/OwnedStockShareCard'
-// import SectionBalanceGraph from '../components/SectionBalanceGraph'
-import SoldStockCard from '../components/SoldStockCard'
 import TodaysGain from '../components/TodaysGain'
 import NewsSection from '../components/NewsSection'
 
@@ -32,7 +27,7 @@ class StocksContainer extends Component {
     return (
       <div className="stockContainer" style={{textAlign: 'center'}}>
         <div className="chartContainer">
-            <TodaysGain />
+            <TodaysGain addMessageToHomeScreen={this.props.addMessageToHomeScreen} />
             {/* <h1>Sector Performance</h1>
             <SectionBalanceGraph /> */}
         </div>

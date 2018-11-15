@@ -52,9 +52,6 @@ export default function reducer(state = initialState, action) {
       let newPurchasedStocks = state.user.purchased_stocks.filter(stock => stock.id !== action.payload.id)
       return {...state, user: {...state.user, purchased_stocks:[...newPurchasedStocks]}}
     case "UPDATE_STOCKS":
-      // let updatedStockState = {...state, user: {...state.user, purchased_stocks:[...action.payload.purchased_stocks], sold_stocks:[...action.payload.sold_stocks]}}
-      // purchased_stock_exist = false
-      // sold_stock_exist = false
       purchased_stocks = state.user.purchased_stocks.map((purchased_stock) => {
         let found = false
         for (let newStock in action.payload.purchased_stocks) {
@@ -73,7 +70,7 @@ export default function reducer(state = initialState, action) {
             found = true
             return {...sold_stock, ...action.payload.sold_stocks[newStock]}
           }
-        } if (found = false) {
+        } if (found === false) {
           return {...sold_stock}
         }
       })
@@ -102,7 +99,6 @@ export default function reducer(state = initialState, action) {
     })
     return {...state, user: {...state.user, account_balance: action.payload.new_balance, purchased_stocks:[...purchased_stocks]}}
     case "UPDATE_OWNED_SHARES":
-      // let owned_stock_share = [...state.user.owned_stock_shares, ...action.payload]
       let new_array = []
       action.payload.map((new_owned_stock) => {
         let found;
@@ -124,27 +120,3 @@ export default function reducer(state = initialState, action) {
       return state
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//

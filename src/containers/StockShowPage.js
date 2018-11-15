@@ -3,7 +3,7 @@ import Chart from '../components/Chart';
 import { withRouter } from 'react-router-dom';
 
 import TradeModal from '../containers/TradePage'
-// import OwnedStockCardForShowPage from '../components/OwnedStockCardForShowPage'
+
 import StockData from '../components/StockData'
 
 import { connect } from 'react-redux'
@@ -62,9 +62,6 @@ class StockShowPage extends Component {
   }
 
 	render() {
-    // const d = new Date();
-    // const h = d.getHours();
-    // const m = d.getMinutes()
     let stock = this.props.location.state.stock
     if (stock === undefined) {
       stock = this.props.location.state

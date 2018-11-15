@@ -63,12 +63,12 @@ class TodaysGain extends Component {
         percentChange = 0
         dollarChange = 0
       }
-    
+
       return (
 
         <React.Fragment>
           <div className="circleHolder">
-            <h3>Account Balance: <b style={{color: 'Lime', paddingRight:'1%'}}>${this.props.total_balance}</b><AddBalance /></h3>
+            <h3>Account Balance: <b style={{color: 'Lime', paddingRight:'1%'}}>${this.props.total_balance}</b><AddBalance  addMessageToHomeScreen={this.props.addMessageToHomeScreen} /></h3>
             <div className="circle-text" style={{borderColor: '#A7F432', marginRight:'5px'}}>
               <div id="clock"></div>
             </div>

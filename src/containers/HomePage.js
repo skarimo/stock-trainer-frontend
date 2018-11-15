@@ -19,18 +19,12 @@ class HomePage extends Component {
   componentWillMount() {
     this.props.updateUserStocks(this.props.user_id)
     this.props.updateStockInfoOnState(this.props.state)
-    
+
     this.refreshInterval = setInterval(() => {
       // this.props.updateStockInfoOnState(this.props.state)
       this.props.updateUserStocks(this.props.user_id)
       this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
     }, 5000);
-
-    // this.refreshInterval2 = setInterval(() => {
-    //   // this.props.updateStockInfoOnState(this.props.state)
-    //   // this.props.updateUserStocks(this.props.user_id)
-    //   // this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
-    // }, 5000);
   }
 
   componentWillUnmount() {
@@ -75,8 +69,6 @@ class HomePage extends Component {
   }
 
 }
-
-
 
 
 const mapStateToProps = (state) => {
