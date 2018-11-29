@@ -3,7 +3,7 @@ const setUserData = (userObj) => ({type: 'SET_USER_DATA', payload: userObj})
 export const authorizeToken = (token) => {
   return (dispatch) => {
     const token = localStorage.getItem("token")
-    return fetch(('https://expense-logger-backend.herokuapp.com/authorize_token'), {
+    return fetch(('https://stock-trainer-backend.herokuapp.com/authorize_token'), {
       headers: {
         "Content-Type": "application/json",
         "Authorization": `${token}`,
@@ -21,7 +21,7 @@ export const authorizeToken = (token) => {
 
 export const login = (loginObj) => {
   return (dispatch) => {
-    return fetch(("https://expense-logger-backend.herokuapp.com/auth/login"), {
+    return fetch(("https://stock-trainer-backend.herokuapp.com/auth/login"), {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export const login = (loginObj) => {
 
 export const signUp = (userInfo) => {
   return (dispatch) => {
-    return fetch(('https://expense-logger-backend.herokuapp.com/auth/register'), {
+    return fetch(('https://stock-trainer-backend.herokuapp.com/auth/register'), {
       method: 'POST',
       headers: {
           "Content-Type": "application/json"
