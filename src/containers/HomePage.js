@@ -20,11 +20,11 @@ class HomePage extends Component {
     this.props.updateUserStocks(this.props.user_id)
     this.props.updateStockInfoOnState(this.props.state)
     //
-    // this.refreshInterval = setInterval(() => {
-    //   // this.props.updateStockInfoOnState(this.props.state)
-    //   this.props.updateUserStocks(this.props.user_id)
-    //   this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
-    // }, 4500);
+    this.refreshInterval = setInterval(() => {
+      // this.props.updateStockInfoOnState(this.props.state)
+      this.props.updateUserStocks(this.props.user_id)
+      this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
+    }, 4500);
   }
 
   componentWillUnmount() {

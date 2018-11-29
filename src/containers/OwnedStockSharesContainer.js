@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import OwnedStockShareCard from '../components/OwnedStockShareCard'
+import { updateSingleLiveStockData } from '../actions/stockActions'
 
 
 class OwnedStockSharesContainer extends Component {
@@ -9,6 +10,18 @@ class OwnedStockSharesContainer extends Component {
     this.state = {
       test: ''
     }
+  }
+
+  componentDidUpdate() {
+    let count = 0
+    for (let stock in this.props.owned_stock_shares) {
+      if (this.props.owned_stock_shares[stock].liveStockData) {
+        count++
+      } else {
+        this.props.updateSingleLiveStockData(this.props.owned_stock_shares[stock], "OWNED_STOCK_SHARES")
+      }
+    }
+    console.log(count)
   }
 
   mainRender = (ownedStockShareCardList) => {
@@ -23,7 +36,7 @@ class OwnedStockSharesContainer extends Component {
   render() {
     let ownedStockShareCardList;
       if (this.props.owned_stock_shares) {
-        ownedStockShareCardList = this.props.owned_stock_shares.map(stock => <OwnedStockShareCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />)
+        ownedStockShareCardList = this.props.owned_stock_shares.map(stock => <OwnedStockShareCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} updateSingleLiveStockData={this.props.updateSingleLiveStockData} />)
       }
 
     return (
@@ -39,4 +52,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(OwnedStockSharesContainer)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateSingleLiveStockData: (stock, location) => dispatch(updateSingleLiveStockData(stock, location))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OwnedStockSharesContainer)

@@ -7,6 +7,7 @@ const updateUserStocksAction = (stockObj) => ({type: 'UPDATE_STOCKS', payload: s
 const updateOwnedSharesAction = (stockObj) => ({type: 'UPDATE_OWNED_SHARES', payload: stockObj})
 const cancelSaleAction = (soldStockID) => ({type: 'CANCEL_SALE', payload: soldStockID})
 const cancelPurchaseAction = (purchaseStockID) => ({type: 'CANCEL_PURCHASE', payload: purchaseStockID})
+const updateSingleLiveStockDataAction = (payloadObj) => ({type: 'LIVE_DATA_SINGLE_STOCK', payload: payloadObj})
 
 const removeSoldStockAction = (id) => ({type: 'REMOVE_SOLD_STOCK', payload: id})
 const removePurchasedStockAction = (id) => ({type: 'REMOVE_PURCHASED_STOCK', payload: id})
@@ -45,6 +46,16 @@ async function fetchAllStocksList(stocksToFetch) {
         dispatch(refreshStockData(newStateObj))
       })
     }
+  }
+
+  export const updateSingleLiveStockData = (stock, location) => {
+    return (dispatch) => {
+    fetch(`https://api.iextrading.com/1.0/stock/${stock.stock.symbol}/quote`).then(res => res.json())
+   .then(liveStockData => {
+       const newStockObj = {...stock, liveStockData: {quote: liveStockData}}
+       dispatch(updateSingleLiveStockDataAction({stock: newStockObj, location: location}))
+     })
+   }
   }
 
 

@@ -51,6 +51,26 @@ export default function reducer(state = initialState, action) {
     case "REMOVE_PURCHASED_STOCK":
       let newPurchasedStocks = state.user.purchased_stocks.filter(stock => stock.id !== action.payload.id)
       return {...state, user: {...state.user, purchased_stocks:[...newPurchasedStocks]}}
+
+
+
+    case "LIVE_DATA_SINGLE_STOCK":
+        if (action.payload.location === "WATCHLISTS") {
+          return {...state, user: {...state.user, watchlists:[...state.user.watchlists, {...action.payload.stock}]}}
+        } else if (action.payload.location === "OWNED_STOCK_SHARES") {
+
+          let newOwnedStockShares = [...state.user.owned_stock_shares]
+            for (let stock in newOwnedStockShares) {
+              if (newOwnedStockShares[stock].id === action.payload.stock.id) {
+                newOwnedStockShares[stock] = action.payload.stock
+              }
+            }
+
+          return {...state, user: {...state.user, owned_stock_shares:[...newOwnedStockShares]}}
+        }
+        return {...state}
+
+
     case "UPDATE_STOCKS":
       purchased_stocks = state.user.purchased_stocks.map((purchased_stock) => {
         let found = false

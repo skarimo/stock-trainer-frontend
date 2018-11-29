@@ -52,7 +52,7 @@ class TodaysGain extends Component {
         let percentChange;
         let dollarChange;
         if (this.props.stockList.owned_stock_shares != false && this.props.stockList.owned_stock_shares != undefined) {
-          if (this.props.stockList.owned_stock_shares[0].liveStockData) {
+          if (this.props.stockList.owned_stock_shares[0].liveStockData && this.props.stockList.owned_stock_shares[this.props.stockList.owned_stock_shares.length - 1].liveStockData) {
              percentChange = parseFloat(this.yesterdaysPercentage().toFixed(2))
              dollarChange = parseFloat(this.yesterdaysDollarAmount().toFixed(2))
           } else {
