@@ -93,17 +93,30 @@ export default function reducer(state = initialState, action) {
           return {...sold_stock}
         }
       })
-      owned_stock_shares = state.user.owned_stock_shares.map((owned_stock) => {
-        let found = false
-        for (let newStock in action.payload.owned_stock_shares) {
-          if (owned_stock.id === action.payload.owned_stock_shares[newStock].id) {
-            found = true
-            return {...owned_stock, ...action.payload.owned_stock_shares[newStock]}
+      // owned_stock_shares = state.user.owned_stock_shares.map((owned_stock) => {
+      //   let found = false
+      //   for (let newStock in action.payload.owned_stock_shares) {
+      //     if (owned_stock.id === action.payload.owned_stock_shares[newStock].id) {
+      //       found = true
+      //       return {...owned_stock, ...action.payload.owned_stock_shares[newStock]}
+      //     }
+      //   } if (found === false) {
+      //     return {...owned_stock}
+      //   }
+      // })
+        owned_stock_shares = []
+        action.payload.owned_stock_shares.map((new_owned_stock) => {
+          let found;
+          state.user.owned_stock_shares.forEach((owned_stock) => {
+            if (new_owned_stock.id === owned_stock.id) {
+
+               found = {...owned_stock, ...new_owned_stock}
+            }
+          })
+          if (found) {
+            owned_stock_shares.push({...found})
           }
-        } if (found === false) {
-          return {...owned_stock}
-        }
-      })
+        })
       return {...state, user: {...state.user, account_balance: action.payload.account_balance, owned_stock_shares:[...owned_stock_shares], purchased_stocks:[...purchased_stocks], sold_stocks:[...sold_stocks]}}
     case "CANCEL_SALE":
       sold_stocks = state.user.sold_stocks.map(stock => {
