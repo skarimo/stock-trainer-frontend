@@ -109,12 +109,13 @@ export default function reducer(state = initialState, action) {
           let found;
           state.user.owned_stock_shares.forEach((owned_stock) => {
             if (new_owned_stock.id === owned_stock.id) {
-
                found = {...owned_stock, ...new_owned_stock}
             }
           })
           if (found) {
             owned_stock_shares.push({...found})
+          } else {
+            owned_stock_shares.push({...new_owned_stock})
           }
         })
       return {...state, user: {...state.user, account_balance: action.payload.account_balance, owned_stock_shares:[...owned_stock_shares], purchased_stocks:[...purchased_stocks], sold_stocks:[...sold_stocks]}}
