@@ -13,16 +13,17 @@ class OwnedStockSharesContainer extends Component {
   }
 
   componentDidUpdate() {
-    let count = 0
     for (let stock in this.props.owned_stock_shares) {
-      if (this.props.owned_stock_shares[stock].liveStockData) {
-        count++
-      } else {
+      if (!this.props.owned_stock_shares[stock].liveStockData) {
         this.props.updateSingleLiveStockData(this.props.owned_stock_shares[stock], "OWNED_STOCK_SHARES")
       }
     }
-    console.log(count)
   }
+
+  handleRefresh = (stock) => {
+    this.props.updateSingleLiveStockData(stock, "OWNED_STOCK_SHARES")
+  }
+
 
   mainRender = (ownedStockShareCardList) => {
     return (
@@ -36,7 +37,7 @@ class OwnedStockSharesContainer extends Component {
   render() {
     let ownedStockShareCardList;
       if (this.props.owned_stock_shares) {
-        ownedStockShareCardList = this.props.owned_stock_shares.map(stock => <OwnedStockShareCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} updateSingleLiveStockData={this.props.updateSingleLiveStockData} />)
+        ownedStockShareCardList = this.props.owned_stock_shares.map(stock => <OwnedStockShareCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} handleRefresh={this.handleRefresh} />)
       }
 
     return (

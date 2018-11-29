@@ -1,7 +1,7 @@
 import React from 'react'
 import TradeModal from '../containers/TradePage'
 
-const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen }) => {
+const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen, handleRefresh }) => {
   if(stock.liveStockData) {
     return (
       <div className="ownedStockCard" style={{width: '700px'}}>
@@ -25,6 +25,9 @@ const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div style={{marginLeft:'auto', marginRight:'0'}}>
+          <button onClick={() => handleRefresh(stock)} className="ui teal basic button" style={{float: 'right', marginLeft: '50%', marginBottom: '10%'}}>⟳</button>
         </div>
       </div>
     )
