@@ -7,7 +7,7 @@ import Navbar from '../components/Navbar'
 // import TradePage from './TradePage'
 import StockShowPage from './StockShowPage'
 
-import { updateStockInfoOnState, updateUserStocks, updateOwnedShares } from '../actions/stockActions'
+import { updateStockInfoOnState, updateUserStocks } from '../actions/stockActions'
 // import { updateUserStocks, updateOwnedShares } from '../actions/stockActions'
 
 class HomePage extends Component {
@@ -21,9 +21,9 @@ class HomePage extends Component {
     this.props.updateStockInfoOnState(this.props.state)
     //
     this.refreshInterval = setInterval(() => {
-      // this.props.updateStockInfoOnState(this.props.state)
       this.props.updateUserStocks(this.props.user_id)
-      this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
+      // this.props.updateStockInfoOnState(this.props.state)
+      // this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
     }, 4500);
   }
 
@@ -80,7 +80,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateStockInfoOnState: (stockLists) => dispatch(updateStockInfoOnState(stockLists)),
-    updateOwnedShares: (userID, owned_stock_shares) => dispatch(updateOwnedShares(userID, owned_stock_shares)),
+    // updateOwnedShares: (userID, owned_stock_shares) => dispatch(updateOwnedShares(userID, owned_stock_shares)),
     updateUserStocks: (userID) => dispatch(updateUserStocks(userID))
   }
 }
