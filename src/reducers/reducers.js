@@ -159,6 +159,50 @@ export default function reducer(state = initialState, action) {
     //     }
     //   })
     // return {...state, user: {...state.user, owned_stock_shares:[...new_array]}}
+    case "ACTION_CABLE_STOCK_UPDATE":
+      console.log(action.payload)
+      if (action.payload.action === "CREATED") {
+        if (action.payload.location === "OWNED_STOCK_SHARES") {
+          owned_stock_shares = [...state.user.owned_stock_shares, action.payload.stock]
+          return {...state, user: {...state.user, owned_stock_shares:[...owned_stock_shares]}}
+        }
+      } else if (action.payload.action === "UPDATED") {
+          if (action.payload.location === "OWNED_STOCK_SHARES") {
+            owned_stock_shares = [...state.user.owned_stock_shares]
+             for (let stock in owned_stock_shares) {
+               if (owned_stock_shares[stock].id === action.payload.stock.id) {
+                 owned_stock_shares[stock] = {...owned_stock_shares[stock], ...action.payload.stock}
+               }
+             }
+             return {...state, user: {...state.user, owned_stock_shares:[...owned_stock_shares]}}
+          } else if (action.payload.location === "PURCHASED_STOCKS") {
+             purchased_stocks = [...state.user.purchased_stocks]
+              for (let stock in purchased_stocks) {
+                if (purchased_stocks[stock].id === action.payload.stock.id) {
+                  purchased_stocks[stock] = {...purchased_stocks[stock], ...action.payload.stock}
+                }
+              }
+              return {...state, user: {...state.user, purchased_stocks:[...purchased_stocks]}}
+          } else if (action.payload.location === "SOLD_STOCKS") {
+            sold_stocks = [...state.user.sold_stocks]
+             for (let stock in sold_stocks) {
+               if (sold_stocks[stock].id === action.payload.stock.id) {
+                 sold_stocks[stock] = {...sold_stocks[stock], ...action.payload.stock}
+               }
+             }
+             return {...state, user: {...state.user, sold_stocks:[...sold_stocks]}}
+          }
+      }  else if (action.payload.action === "DESTROYED") {
+          if (action.payload.location === "OWNED_STOCK_SHARES") {
+            debugger
+            owned_stock_shares = state.user.owned_stock_shares.filter((owned_stock) => {
+              return owned_stock.id !== action.payload.stock.id
+            })
+            return {...state, user: {...state.user, owned_stock_shares:[...owned_stock_shares]}}
+          }
+        }
+    return {...state}
+
     default:
       return state
   }

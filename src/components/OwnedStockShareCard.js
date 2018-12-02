@@ -2,6 +2,7 @@ import React from 'react'
 import TradeModal from '../containers/TradePage'
 
 const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen, handleRefresh }) => {
+  console.log(stock)
   if(stock.liveStockData) {
     return (
       <div className="ownedStockCard" style={{width: '700px'}}>

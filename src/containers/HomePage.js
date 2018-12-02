@@ -7,7 +7,10 @@ import Navbar from '../components/Navbar'
 // import TradePage from './TradePage'
 import StockShowPage from './StockShowPage'
 
-import { updateStockInfoOnState, updateUserStocks } from '../actions/stockActions'
+import ActionCable from 'action-cable-react-jwt'
+import { actionCableRecievedStock } from '../actions/actionCableActions'
+
+import { updateStockInfoOnState/*, updateUserStocks*/ } from '../actions/stockActions'
 // import { updateUserStocks, updateOwnedShares } from '../actions/stockActions'
 
 class HomePage extends Component {
@@ -17,22 +20,42 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-    this.props.updateUserStocks(this.props.user_id)
+    // this.props.updateUserStocks(this.props.user_id)
     this.props.updateStockInfoOnState(this.props.state)
     //
-    this.refreshInterval = setInterval(() => {
-      this.props.updateUserStocks(this.props.user_id)
-      // this.props.updateStockInfoOnState(this.props.state)
-      // this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
-    }, 4500);
+    // this.refreshInterval = setInterval(() => {
+    //   this.props.updateUserStocks(this.props.user_id)
+    //   // this.props.updateStockInfoOnState(this.props.state)
+    //   // this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
+    // }, 4500);
   }
+
+  componentDidMount () {
+  this.createSocket()
+  }
+
+   createSocket = () => {
+    // get your JWT token
+    // this is an example using localStorage
+    const token = localStorage.getItem('token')
+
+    let App = {}
+    App.cable = ActionCable.createConsumer(`ws://localhost:3000/cable`, token)
+    const subscription = App.cable.subscriptions.create({channel: `StocksChannel`}, {
+      received: this.handleBroadcast
+    })
+  }
+
+ handleBroadcast = (data) => {
+   this.props.actionCableRecievedStock(data)
+ }
+
 
   componentWillUnmount() {
    clearInterval(this.refreshInterval)
+   this.subscription &&
+    this.context.cable.subscriptions.remove(this.subscription)
  }
- // <div style={{width:'100%', paddingBottom: '5%'}}><Navbar /></div>
- // <div><StocksContainer /></div>
-// <Route exact path="/signup" render={(props) => <SignUp history={props.history} adapter={this.adapter} handleSignUp={this.handleSignUp} />} />
 
   addMessageToHomeScreen = (message) => {this.setState({ message })}
 
@@ -81,7 +104,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     updateStockInfoOnState: (stockLists) => dispatch(updateStockInfoOnState(stockLists)),
     // updateOwnedShares: (userID, owned_stock_shares) => dispatch(updateOwnedShares(userID, owned_stock_shares)),
-    updateUserStocks: (userID) => dispatch(updateUserStocks(userID))
+    // updateUserStocks: (userID) => dispatch(updateUserStocks(userID)),
+    actionCableRecievedStock: (obj) => dispatch(actionCableRecievedStock(obj))
   }
 }
 
