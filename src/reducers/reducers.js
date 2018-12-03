@@ -29,15 +29,15 @@ export default function reducer(state = initialState, action) {
         let buyState = {...state, user: {...state.user, account_balance: action.payload.total_balance, purchased_stocks:[...purchased_stocks]}}
       return buyState
     case "SELL_STOCK":
-      let owned_stock_shares = state.user.owned_stock_shares.map((owned_stock_share) => {
-        if(owned_stock_share.stock.symbol === action.payload.old_stock_card.symbol) {
-          return {...owned_stock_share, owned_shares: (owned_stock_share.owned_shares - action.payload.old_stock_card.shares_amount)}
-        } else {
-          return owned_stock_share
-        }
-      })
+      // let owned_stock_shares = state.user.owned_stock_shares.map((owned_stock_share) => {
+      //   if(owned_stock_share.stock.symbol === action.payload.old_stock_card.symbol) {
+      //     return {...owned_stock_share, owned_shares: (owned_stock_share.owned_shares - action.payload.old_stock_card.shares_amount)}
+      //   } else {
+      //     return owned_stock_share
+      //   }
+      // })
       let sold_stock = [...state.user.sold_stocks, action.payload.new_stock_sale]
-      return {...state, user: {...state.user, owned_stock_shares:[...owned_stock_shares], sold_stocks: sold_stock}}
+      return {...state, user: {...state.user, sold_stocks: sold_stock}}
     case "ADD_WATCHLIST":
       let newWatchlist = state.user.watchlists.slice()
       newWatchlist.push(action.payload.stock_card)
@@ -104,7 +104,7 @@ export default function reducer(state = initialState, action) {
       //     return {...owned_stock}
       //   }
       // })
-        owned_stock_shares = []
+        let owned_stock_shares = []
         action.payload.owned_stock_shares.map((new_owned_stock) => {
           let found;
           state.user.owned_stock_shares.forEach((owned_stock) => {
@@ -194,12 +194,13 @@ export default function reducer(state = initialState, action) {
           }
       }  else if (action.payload.action === "DESTROYED") {
           if (action.payload.location === "OWNED_STOCK_SHARES") {
-            debugger
             owned_stock_shares = state.user.owned_stock_shares.filter((owned_stock) => {
               return owned_stock.id !== action.payload.stock.id
             })
             return {...state, user: {...state.user, owned_stock_shares:[...owned_stock_shares]}}
           }
+        } else if (action.payload.action === "UPDATE_BALANCE") {
+          return {...state, user: {...state.user, account_balance: action.payload.account_balance}}
         }
     return {...state}
 

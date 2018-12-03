@@ -24,7 +24,7 @@ class WatchlistContainer extends Component {
     }
     if (watchlistStockCardList != false) {
       return (
-        <div style={{overflowY: 'scroll', display: 'flex', flexDirection: 'column', maxHeight:'600px', width: '700px', alignItems: 'center'}}>
+        <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'scroll', maxHeight:'600px', width: '700px'}}>
           {watchlistStockCardList.length > 0 ? <h1>Watchlisted Stocks:</h1> : null}
           {watchlistStockCardList}
         </div>
