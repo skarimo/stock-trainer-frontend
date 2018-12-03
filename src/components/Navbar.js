@@ -64,7 +64,7 @@ class Navbar extends Component {
 
     if (this.state.sectorPerformance) {
       sectorPerformanceTextList = this.state.sectorPerformance.map((sector) => {
-        return (<React.Fragment><font style={{fontSize: '17px', color: 'white'}}>{Object.keys(sector)[0]}: </font><font style={{fontSize: '18px', color: (parseFloat(Object.values(sector)[0]) > 0) ? 'LightGreen' : 'red'}}>{Object.values(sector)[0]}</font> — </React.Fragment>)
+        return (<React.Fragment key={Object.keys(sector)[0]}><font style={{fontSize: '17px', color: 'white'}}>{Object.keys(sector)[0]}: </font><font style={{fontSize: '18px', color: (parseFloat(Object.values(sector)[0]) > 0) ? 'LightGreen' : 'red'}}>{Object.values(sector)[0]}</font> — </React.Fragment>)
       })
     }
 

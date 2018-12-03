@@ -24,9 +24,9 @@ class WatchlistContainer extends Component {
     }
     if (watchlistStockCardList != false) {
       return (
-        <div style={{display:'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'scroll', maxHeight:'600px', width: '700px'}}>
-          {watchlistStockCardList.length > 0 ? <h1>Watchlisted Stocks:</h1> : null}
-          {watchlistStockCardList}
+        <div style={{display: 'flex', maxHeight: '700px', flexDirection: 'column'}}>
+          <h1>Watchlisted Stocks:</h1>
+          <div style={{overflowY: 'scroll', maxHeight:'700px', width:'730px'}}>{watchlistStockCardList}</div>
         </div>
       )
     } else {
@@ -36,7 +36,7 @@ class WatchlistContainer extends Component {
 
   render() {
     return (
-      <React.Fragment>{this.mainRender()}</React.Fragment>
+      this.mainRender()
   )
 }
 }

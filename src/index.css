@@ -32,7 +32,9 @@ code {
   color: white;
 }
 
-.ownedStockCard, .watchlistStockCard {
+
+
+.ownedStockCard {
   display: flex;
   border-color: green;
   white-space: wrap;
@@ -44,6 +46,23 @@ code {
   border-width: 0.5px;
   margin: 1%;
   padding: 5px;
+  background-color: rgb(67,67,67);
+  color: lightblue;
+}
+
+.watchlistStockCard {
+  display: flex;
+  border-color: green;
+  white-space: wrap;
+  overflow: hidden;
+  margin-right: 70px;
+  /* border-style: solid; */
+  /* border-radius: 10px; */
+  box-shadow: 0 0 10px #000000;
+  border-width: 0.5px;
+  margin: 1%;
+  padding: 5px;
+  /* height: 500px; */
   background-color: rgb(67,67,67);
   color: lightblue;
 }
@@ -65,13 +84,13 @@ code {
   color: lightblue;
 }
 
-.watchlistStockCard {
+/* .watchlistStockCard {
   max-width: 600px;
 }
 
 .ownedStockCard {
   max-width: 630px;
-}
+} */
 
 
 .ownedStockCard > h1:first-child {

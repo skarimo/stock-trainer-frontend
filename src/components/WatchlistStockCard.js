@@ -1,14 +1,12 @@
 import React from 'react'
 import TradeModal from '../containers/TradePage'
-// import { connect } from 'react-redux'
-
 
 const WatchlistStockCard = ({ stock, history, removeFromWatchlist, addMessageToHomeScreen, handleRefresh }) => {
   if(stock.liveStockData) {
     return (
-      <div className="watchlistStockCard" style={{width: '600px'}}>
+      <div className="watchlistStockCard"style={{}}>
         <div className="watchlistStockSymbol"><h1 style={{color:'#A7F432'}}>{stock.liveStockData.quote.symbol}</h1>
-        <TradeModal addMessageToHomeScreen={addMessageToHomeScreen} stock={stock.stock} liveData={stock.liveStockData.quote}/>
+         <TradeModal addMessageToHomeScreen={addMessageToHomeScreen} stock={stock.stock} liveData={stock.liveStockData.quote}/>
         </div>
         <div className="stockCardDetail" onClick={() => history.push(`/stock/${stock.stock.id}`, stock)} style={{textAlign: 'left'}}>
           <h3>{stock.stock.name}</h3>

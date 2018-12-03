@@ -29,13 +29,6 @@ export default function reducer(state = initialState, action) {
         let buyState = {...state, user: {...state.user, account_balance: action.payload.total_balance, purchased_stocks:[...purchased_stocks]}}
       return buyState
     case "SELL_STOCK":
-      // let owned_stock_shares = state.user.owned_stock_shares.map((owned_stock_share) => {
-      //   if(owned_stock_share.stock.symbol === action.payload.old_stock_card.symbol) {
-      //     return {...owned_stock_share, owned_shares: (owned_stock_share.owned_shares - action.payload.old_stock_card.shares_amount)}
-      //   } else {
-      //     return owned_stock_share
-      //   }
-      // })
       let sold_stock = [...state.user.sold_stocks, action.payload.new_stock_sale]
       return {...state, user: {...state.user, sold_stocks: sold_stock}}
     case "ADD_WATCHLIST":
@@ -70,63 +63,14 @@ export default function reducer(state = initialState, action) {
           return {...state, user: {...state.user, owned_stock_shares:[...newOwnedStockShares]}}
         }
         return {...state}
-    case "UPDATE_STOCKS":
-      purchased_stocks = state.user.purchased_stocks.map((purchased_stock) => {
-        let found = false
-        for (let newStock in action.payload.purchased_stocks) {
-          if (purchased_stock.id === action.payload.purchased_stocks[newStock].id) {
-            found = true
-            return {...purchased_stock, ...action.payload.purchased_stocks[newStock]}
-          }
-        } if (found = false) {
-          return {...purchased_stock}
-        }
-      })
-      let sold_stocks = state.user.sold_stocks.map((sold_stock) => {
-        let found = false
-        for (let newStock in action.payload.sold_stocks) {
-          if (sold_stock.id === action.payload.sold_stocks[newStock].id) {
-            found = true
-            return {...sold_stock, ...action.payload.sold_stocks[newStock]}
-          }
-        } if (found === false) {
-          return {...sold_stock}
-        }
-      })
-      // owned_stock_shares = state.user.owned_stock_shares.map((owned_stock) => {
-      //   let found = false
-      //   for (let newStock in action.payload.owned_stock_shares) {
-      //     if (owned_stock.id === action.payload.owned_stock_shares[newStock].id) {
-      //       found = true
-      //       return {...owned_stock, ...action.payload.owned_stock_shares[newStock]}
-      //     }
-      //   } if (found === false) {
-      //     return {...owned_stock}
-      //   }
-      // })
-        let owned_stock_shares = []
-        action.payload.owned_stock_shares.map((new_owned_stock) => {
-          let found;
-          state.user.owned_stock_shares.forEach((owned_stock) => {
-            if (new_owned_stock.id === owned_stock.id) {
-               found = {...owned_stock, ...new_owned_stock}
-            }
-          })
-          if (found) {
-            owned_stock_shares.push({...found})
-          } else {
-            owned_stock_shares.push({...new_owned_stock})
-          }
-        })
-      return {...state, user: {...state.user, account_balance: action.payload.account_balance, owned_stock_shares:[...owned_stock_shares], purchased_stocks:[...purchased_stocks], sold_stocks:[...sold_stocks]}}
     case "CANCEL_SALE":
-      sold_stocks = state.user.sold_stocks.map(stock => {
+      let sold_stocks = state.user.sold_stocks.map(stock => {
         if (stock.id === action.payload.stock_card.id) {
           return {...stock, ...action.payload.stock_card}
         } else {
           return stock
         }})
-      owned_stock_shares = state.user.owned_stock_shares.map(stock => {
+      let owned_stock_shares = state.user.owned_stock_shares.map(stock => {
         if (stock.stock.symbol === action.payload.stock_card.stock.symbol) {
           return {...stock, owned_shares: action.payload.new_owned_shares}
         } else {
@@ -160,7 +104,6 @@ export default function reducer(state = initialState, action) {
     //   })
     // return {...state, user: {...state.user, owned_stock_shares:[...new_array]}}
     case "ACTION_CABLE_STOCK_UPDATE":
-      console.log(action.payload)
       if (action.payload.action === "CREATED") {
         if (action.payload.location === "OWNED_STOCK_SHARES") {
           owned_stock_shares = [...state.user.owned_stock_shares, action.payload.stock]

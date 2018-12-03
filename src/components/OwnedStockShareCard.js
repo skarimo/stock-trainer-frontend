@@ -2,7 +2,6 @@ import React from 'react'
 import TradeModal from '../containers/TradePage'
 
 const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen, handleRefresh }) => {
-  console.log(stock)
   if(stock.liveStockData) {
     return (
       <div className="ownedStockCard" style={{width: '700px'}}>
@@ -20,7 +19,7 @@ const OwnedStockShareCard = ({ stock, history, addMessageToHomeScreen, handleRef
                   <h5>Owned Shares: <b style={{color:'white'}}>{stock.owned_shares}</b></h5>
                 </div>
                 <div style={{paddingLeft:'10px'}}>
-                  <h5>Current Price: <b style={{color:'white'}}>{stock.liveStockData.quote.latestPrice}</b></h5>
+                  <h5>Current Price: <b style={{color:'white'}}>${stock.liveStockData.quote.latestPrice}</b></h5>
                   <h5>Latest Volume: <b style={{color:'white'}}>{stock.liveStockData.quote.latestVolume}</b></h5>
                 </div>
               </div>

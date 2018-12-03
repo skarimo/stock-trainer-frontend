@@ -10,8 +10,7 @@ import StockShowPage from './StockShowPage'
 import ActionCable from 'action-cable-react-jwt'
 import { actionCableRecievedStock } from '../actions/actionCableActions'
 
-import { updateStockInfoOnState/*, updateUserStocks*/ } from '../actions/stockActions'
-// import { updateUserStocks, updateOwnedShares } from '../actions/stockActions'
+import { updateStockInfoOnState} from '../actions/stockActions'
 
 class HomePage extends Component {
 
@@ -20,14 +19,7 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-    // this.props.updateUserStocks(this.props.user_id)
     this.props.updateStockInfoOnState(this.props.state)
-    //
-    // this.refreshInterval = setInterval(() => {
-    //   this.props.updateUserStocks(this.props.user_id)
-    //   // this.props.updateStockInfoOnState(this.props.state)
-    //   // this.props.updateOwnedShares(this.props.user_id, [...this.props.state.owned_stock_shares])
-    // }, 4500);
   }
 
   componentDidMount () {
@@ -103,8 +95,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateStockInfoOnState: (stockLists) => dispatch(updateStockInfoOnState(stockLists)),
-    // updateOwnedShares: (userID, owned_stock_shares) => dispatch(updateOwnedShares(userID, owned_stock_shares)),
-    // updateUserStocks: (userID) => dispatch(updateUserStocks(userID)),
     actionCableRecievedStock: (obj) => dispatch(actionCableRecievedStock(obj))
   }
 }
