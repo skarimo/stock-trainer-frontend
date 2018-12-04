@@ -32,7 +32,7 @@ class Navbar extends Component {
 
   getSearchResults = (searchObj) => {
     const token = localStorage.getItem("token")
-    fetch(`https://stock-trainer-backend.herokuapp.com/api/v1/search`, {
+    fetch(`http://localhost:3000/api/v1/search`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

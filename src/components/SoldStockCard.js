@@ -35,11 +35,11 @@ const SoldStockCard = ({ stock, history, addMessageToHomeScreen, cancelSale, rem
 }
 
 function statusShow(status, status_id) {
-  if (status.name === "PENDING" || status_id === 2) {
+  if (status.name === "PENDING" || status_id == 2) {
     return null
-  } else if (status.name === "CANCELED" || status_id === 3) {
+  } else if (status.name === "CANCELED" || status_id == 3) {
     return <b style={{color: 'red'}}>CANCELED</b>
-  } else if (status.name === "COMPLETED" || status_id === 1) {
+  } else if (status.name === "COMPLETED" || status_id == 1) {
     return <b style={{color: 'green'}}>COMPLETED</b>
   }
 }

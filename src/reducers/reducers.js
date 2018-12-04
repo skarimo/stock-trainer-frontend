@@ -86,23 +86,6 @@ export default function reducer(state = initialState, action) {
       }
     })
     return {...state, user: {...state.user, account_balance: action.payload.new_balance, purchased_stocks:[...purchased_stocks]}}
-    // case "UPDATE_OWNED_SHARES":
-    //   let new_array = []
-    //   action.payload.map((new_owned_stock) => {
-    //     let found;
-    //     state.user.owned_stock_shares.forEach((owned_stock) => {
-    //       if (new_owned_stock.id === owned_stock.id) {
-    //
-    //          found = {...owned_stock, ...new_owned_stock}
-    //       }
-    //     })
-    //     if (found) {
-    //       new_array.push({...found})
-    //     } else {
-    //       new_array.push({...new_owned_stock})
-    //     }
-    //   })
-    // return {...state, user: {...state.user, owned_stock_shares:[...new_array]}}
     case "ACTION_CABLE_STOCK_UPDATE":
       if (action.payload.action === "CREATED") {
         if (action.payload.location === "OWNED_STOCK_SHARES") {

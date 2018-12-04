@@ -32,7 +32,7 @@ class HomePage extends Component {
     const token = localStorage.getItem('token')
 
     let App = {}
-    App.cable = ActionCable.createConsumer(`wss://stock-trainer-backend.herokuapp.com/cable`, token)
+    App.cable = ActionCable.createConsumer(`ws://localhost:3000/cable`, token)
     const subscription = App.cable.subscriptions.create({channel: `StocksChannel`}, {
       received: this.handleBroadcast
     })
