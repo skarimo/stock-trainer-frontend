@@ -27,8 +27,6 @@ class HomePage extends Component {
   }
 
    createSocket = () => {
-    // get your JWT token
-    // this is an example using localStorage
     const token = localStorage.getItem('token')
 
     let App = {}
