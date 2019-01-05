@@ -29,7 +29,6 @@ class Login extends Component {
 
   handleLoginSubmit = (e) => {
     e.preventDefault()
-    // this.setState({ loading: true})
     this.props.changeLoading(true)
     this.props.login(this.state)
   }
@@ -64,7 +63,6 @@ class Login extends Component {
     )
   }
 }
-
 
 const mapStateToProps = (state) => {
   return {

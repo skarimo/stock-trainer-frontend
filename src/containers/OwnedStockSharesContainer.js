@@ -24,7 +24,6 @@ class OwnedStockSharesContainer extends Component {
     this.props.updateSingleLiveStockData(stock, "OWNED_STOCK_SHARES")
   }
 
-
   mainRender = (ownedStockShareCardList) => {
     return (
       <div style={{display: 'flex', maxHeight: '700px', flexDirection: 'column'}}>

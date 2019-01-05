@@ -17,7 +17,6 @@ class SignUp extends Component {
     }
   }
 
-
   handleOnChange = (e) => {
     this.setState({ [e.target.name]: e.target.value })
   }

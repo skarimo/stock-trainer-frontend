@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Login from './containers/Login.js'
-// import 'semantic-ui'
 
 class App extends Component {
 
