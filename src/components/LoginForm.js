@@ -24,11 +24,8 @@ const LoginForm = (props) => {
                 </div>
                 <button onClick={(e) => props.handleLoginSubmit(e)} className="ui fluid large green submit button">Login</button>
               </div>
-
               <div className="ui error message"></div>
-
             </form>
-
             <div className="ui message" style={{backgroundColor: 'Silver'}}>
               New to us? <Link to='/signup'>Sign Up</Link>
             </div>

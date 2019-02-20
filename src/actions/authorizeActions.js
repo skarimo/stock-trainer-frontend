@@ -1,5 +1,6 @@
 const setUserData = (userObj) => ({type: 'SET_USER_DATA', payload: userObj})
 
+//authorize token when user returns
 export const authorizeToken = (token) => {
   return (dispatch) => {
     const token = localStorage.getItem("token")
@@ -19,6 +20,7 @@ export const authorizeToken = (token) => {
   }
 }
 
+//login action dispatcher
 export const login = (loginObj) => {
   return (dispatch) => {
     return fetch(("http://localhost:3000/auth/login"), {
@@ -40,6 +42,7 @@ export const login = (loginObj) => {
   }
 }
 
+//signup action dispatcher
 export const signUp = (userInfo) => {
   return (dispatch) => {
     return fetch(('http://localhost:3000/auth/register'), {

@@ -29,7 +29,6 @@ class StockShowPage extends Component {
     let stockIntraday;
     fetch(`https://api.iextrading.com/1.0/stock/${symbol}/chart/1d`).then(res => res.json())
     .then(resList => {
-
       stockIntraday = resList.filter(res1 => (res1.date && res1.minute))
       stockIntraday = stockIntraday.map((result) => {
           let date = new Date(result.date.slice(0,4) + '-' + result.date.slice(4,6) + '-' + result.date.slice(6,8) + 'T' + result.minute)

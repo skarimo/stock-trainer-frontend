@@ -28,17 +28,11 @@ class StocksContainer extends Component {
       <div className="stockContainer" style={{textAlign: 'center'}}>
         <div className="chartContainer">
             <TodaysGain addMessageToHomeScreen={this.props.addMessageToHomeScreen} />
-            {/* <h1>Sector Performance</h1>
-            <SectionBalanceGraph /> */}
         </div>
-
-        <OwnedStockSharesContainer addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />
-
-        <HistoryContainer cancelSale={this.props.cancelSale} cancelPurchase={this.props.cancelPurchase} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />
-
-        <WatchlistContainer addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} removeFromWatchlist={this.removeFromWatchlist} />
-
-        <div style={{/*overflowY: 'scroll', maxHeight:'600px'*/}}>
+          <OwnedStockSharesContainer addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />
+          <HistoryContainer cancelSale={this.props.cancelSale} cancelPurchase={this.props.cancelPurchase} addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} buyStock={this.props.buyStock} sellStock={this.props.sellStock} />
+          <WatchlistContainer addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} removeFromWatchlist={this.removeFromWatchlist} />
+        <div>
           <h1>News Section</h1>
           <NewsSection />
         </div>
@@ -46,7 +40,6 @@ class StocksContainer extends Component {
     )
   }
 }
-
 
 
 const mapStateToProps = (state) => {

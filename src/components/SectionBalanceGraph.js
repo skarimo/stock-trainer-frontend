@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import Chart from "./BarChart";
 
-
-
 class SectionBalanceGraph extends Component {
   state = {
     data: null

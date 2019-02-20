@@ -26,7 +26,6 @@ class HistoryContainer extends Component {
     if (soldStockCardList != false || purchasedStockCardList != false) {
       return (
         <div style={{display: 'flex', maxHeight: '700px', flexDirection: 'column', width: '600px'}}>
-
           {purchasedStockCardList.length > 0 ? <h3>Purchase History:</h3> : null}
           <div style={{overflowY: 'scroll', maxHeight:'300px'}}>
             {purchasedStockCardList}
@@ -36,7 +35,6 @@ class HistoryContainer extends Component {
           <div style={{overflowY: 'scroll', maxHeight:'300px'}}>
             {soldStockCardList}
           </div>
-
         </div>
       )
     } else {
@@ -45,11 +43,10 @@ class HistoryContainer extends Component {
   }
 
   render() {
-
     return (
       <React.Fragment>{this.mainRender()}</React.Fragment>
-  )
-}
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

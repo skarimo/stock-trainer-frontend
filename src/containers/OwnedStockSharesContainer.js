@@ -38,11 +38,10 @@ class OwnedStockSharesContainer extends Component {
       if (this.props.owned_stock_shares) {
         ownedStockShareCardList = this.props.owned_stock_shares.map(stock => <OwnedStockShareCard addMessageToHomeScreen={this.props.addMessageToHomeScreen} history={this.props.history} key={stock.id} stock={stock} buyStock={this.props.buyStock} sellStock={this.props.sellStock} handleRefresh={this.handleRefresh} />)
       }
-
     return (
       <React.Fragment>{ownedStockShareCardList != false ? this.mainRender(ownedStockShareCardList) : null}</React.Fragment>
-  )
-}
+    )
+  }
 }
 
 const mapStateToProps = (state) => {

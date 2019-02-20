@@ -48,6 +48,7 @@ class Buy extends Component {
         </form>
       )
     }
+
   }
 
 const mapStateToProps = (state) => {

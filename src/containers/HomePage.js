@@ -26,7 +26,7 @@ class HomePage extends Component {
   this.createSocket()
   }
 
-   createSocket = () => {
+  createSocket = () => {
     const token = localStorage.getItem('token')
 
     let App = {}
@@ -36,9 +36,9 @@ class HomePage extends Component {
     })
   }
 
- handleBroadcast = (data) => {
-   this.props.actionCableRecievedStock(data)
- }
+  handleBroadcast = (data) => {
+    this.props.actionCableRecievedStock(data)
+  }
 
 
   componentWillUnmount() {
@@ -79,7 +79,6 @@ class HomePage extends Component {
       </div>
     )
   }
-
 }
 
 
